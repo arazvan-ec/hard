@@ -1,0 +1,306 @@
+# sources.yaml — Registro de fuentes del AI Radar
+#
+# El activo que escala. Cada entrada es una fuente que radar-scan recorre y que
+# source-curation enriquece. Tier: 1 = señal primaria/originadores, 2 = metodología/
+# síntesis de alta calidad, 3 = agregador/roundup (útil para descubrir, ruidoso).
+#
+# Campos:
+#   id          identificador único (slug)
+#   name        nombre legible
+#   type        awesome-list | curator-blog | curator-x | eng-blog | aggregator
+#   url         URL canónica (o handle para X)
+#   topics      etiquetas de taxonomía que suele cubrir
+#   tier        1 | 2 | 3
+#   lang        idioma principal
+#   cadence     con qué frecuencia conviene revisar
+#   last_checked  YYYY-MM-DD (lo actualiza radar-scan)
+#   notes       qué la hace valiosa
+
+version: 0
+seeded: 2026-06-24
+
+sources:
+
+  # ───────────────────────── Listas curadas (descubrimiento masivo) ─────────────────────────
+  - id: awesome-sdd
+    name: awesome-spec-driven-development (Engineering4AI)
+    type: awesome-list
+    url: https://github.com/Engineering4AI/awesome-spec-driven-development
+    topics: [spec-as-artifact, full-flow, ide-native]
+    tier: 2
+    lang: en
+    cadence: weekly
+    last_checked: 2026-06-24
+    notes: Lista madre de SDD. Cambios = nuevos frameworks de spec.
+
+  - id: awesome-ai-dev
+    name: awesome-AI-driven-development (eltociear)
+    type: awesome-list
+    url: https://github.com/eltociear/awesome-AI-driven-development
+    topics: [full-flow, spec-as-artifact, tooling]
+    tier: 3
+    lang: en
+    cadence: weekly
+    last_checked: 2026-06-24
+    notes: Amplio, algo ruidoso; bueno para long-tail.
+
+  - id: awesome-harness
+    name: awesome-harness-engineering (walkinglabs)
+    type: awesome-list
+    url: https://github.com/walkinglabs/awesome-harness-engineering
+    topics: [harness-engineering, context-eng, evals, benchmarks, orchestrators]
+    tier: 1
+    lang: en
+    cadence: weekly
+    last_checked: 2026-06-24
+    notes: Oro. Apunta a fuentes primarias (Anthropic, OpenAI, LangChain, Thoughtworks, HumanLayer).
+
+  - id: awesome-orchestrators
+    name: awesome-agent-orchestrators (andyrewlee)
+    type: awesome-list
+    url: https://github.com/andyrewlee/awesome-agent-orchestrators
+    topics: [orchestrators, autonomous-loops]
+    tier: 2
+    lang: en
+    cadence: weekly
+    last_checked: 2026-06-24
+    notes: ~50 orquestadores (worktrees, kanban, swarms).
+
+  # ───────────────────────── Curadores: blogs (señal primaria) ─────────────────────────
+  - id: ghuntley
+    name: Geoffrey Huntley
+    type: curator-blog
+    url: https://ghuntley.com
+    topics: [autonomous-loops, context-eng, harness-engineering]
+    tier: 1
+    lang: en
+    cadence: weekly
+    last_checked: 2026-06-24
+    notes: Origen de Ralph. Técnicas antes que nadie. Tags /ai.
+
+  - id: yegge
+    name: Steve Yegge
+    type: curator-blog
+    url: https://steve-yegge.medium.com
+    topics: [orchestrators, autonomous-loops, memory]
+    tier: 1
+    lang: en
+    cadence: weekly
+    last_checked: 2026-06-24
+    notes: Gas Town, Beads, MEOW. Memoria institucional para agentes.
+
+  - id: simonwillison
+    name: Simon Willison
+    type: curator-blog
+    url: https://simonwillison.net
+    topics: [tooling, evals, context-eng, methodology]
+    tier: 1
+    lang: en
+    cadence: daily
+    last_checked: 2026-06-24
+    notes: Índice por tags excelente. Práctico, honesto, alta frecuencia.
+
+  - id: addyosmani
+    name: Addy Osmani
+    type: curator-blog
+    url: https://addyosmani.com/blog
+    topics: [orchestrators, full-flow, methodology]
+    tier: 1
+    lang: en
+    cadence: weekly
+    last_checked: 2026-06-24
+    notes: Modelo de 3 tiers. Ver también beyond.addy.ie y talks.addy.ie.
+
+  - id: humanlayer
+    name: HumanLayer / Dexter Horthy
+    type: curator-blog
+    url: https://www.humanlayer.dev/blog
+    topics: [harness-engineering, context-eng, methodology]
+    tier: 1
+    lang: en
+    cadence: weekly
+    last_checked: 2026-06-24
+    notes: 12-factor agents, dumb zone (40%), backpressure, advanced context engineering.
+
+  - id: thoughtworks-genai
+    name: Thoughtworks / Fowler / Böckeler (exploring gen-ai)
+    type: eng-blog
+    url: https://martinfowler.com/articles/exploring-gen-ai
+    topics: [methodology, harness-engineering, context-eng, spec-as-artifact]
+    tier: 1
+    lang: en
+    cadence: biweekly
+    last_checked: 2026-06-24
+    notes: Taxonomía SDD, harness engineering, SPDD, anchoring to reference.
+
+  - id: every
+    name: Every (Compound Engineering)
+    type: curator-blog
+    url: https://every.to/chain-of-thought
+    topics: [full-flow, methodology, memory]
+    tier: 2
+    lang: en
+    cadence: weekly
+    last_checked: 2026-06-24
+    notes: Kieran Klaassen / Dan Shipper. Compounding loop.
+
+  - id: buildermethods
+    name: Builder Methods (Brian Casel)
+    type: curator-blog
+    url: https://buildermethods.com
+    topics: [full-flow, methodology, spec-as-artifact]
+    tier: 2
+    lang: en
+    cadence: biweekly
+    last_checked: 2026-06-24
+    notes: Agent OS, standards-as-skills.
+
+  # ───────────────────────── Curadores: X / Twitter ─────────────────────────
+  - id: x-ghuntley
+    name: Geoffrey Huntley (X)
+    type: curator-x
+    url: "@GeoffreyHuntley"
+    topics: [autonomous-loops, context-eng]
+    tier: 1
+    lang: en
+    cadence: daily
+    last_checked: 2026-06-24
+    notes: Lo emergente aparece aquí antes que en el blog.
+
+  - id: x-yegge
+    name: Steve Yegge (X)
+    type: curator-x
+    url: "@steve_yegge"
+    topics: [orchestrators, memory]
+    tier: 1
+    lang: en
+    cadence: daily
+    last_checked: 2026-06-24
+
+  - id: x-carson
+    name: Ryan Carson (X)
+    type: curator-x
+    url: "@ryancarson"
+    topics: [autonomous-loops, orchestrators]
+    tier: 1
+    lang: en
+    cadence: daily
+    last_checked: 2026-06-24
+    notes: Antfarm, snarktank/ralph.
+
+  - id: x-steipete
+    name: Peter Steinberger (X)
+    type: curator-x
+    url: "@steipete"
+    topics: [harness-engineering, tooling]
+    tier: 1
+    lang: en
+    cadence: daily
+    last_checked: 2026-06-24
+    notes: OpenClaw; closing the loop.
+
+  - id: x-dexhorthy
+    name: Dexter Horthy (X)
+    type: curator-x
+    url: "@dexhorthy"
+    topics: [harness-engineering, context-eng]
+    tier: 1
+    lang: en
+    cadence: daily
+    last_checked: 2026-06-24
+
+  - id: x-bcherny
+    name: Boris Cherny (X)
+    type: curator-x
+    url: "@bcherny"
+    topics: [tooling, orchestrators]
+    tier: 2
+    lang: en
+    cadence: daily
+    last_checked: 2026-06-24
+    notes: Creador de Claude Code; setups y multi-agente.
+
+  - id: x-trq
+    name: Thariq Shihipar (X)
+    type: curator-x
+    url: "@trq212"
+    topics: [tooling, methodology]
+    tier: 2
+    lang: en
+    cadence: weekly
+    last_checked: 2026-06-24
+
+  # ───────────────────────── Blogs de ingeniería (institucional) ─────────────────────────
+  - id: anthropic-eng
+    name: Anthropic Engineering
+    type: eng-blog
+    url: https://www.anthropic.com/engineering
+    topics: [harness-engineering, context-eng, evals, full-flow]
+    tier: 1
+    lang: en
+    cadence: weekly
+    last_checked: 2026-06-24
+    notes: Effective harnesses, context engineering, multi-agent research, evals.
+
+  - id: openai-index
+    name: OpenAI (index / research)
+    type: eng-blog
+    url: https://openai.com/index/
+    topics: [harness-engineering, evals]
+    tier: 2
+    lang: en
+    cadence: weekly
+    last_checked: 2026-06-24
+    notes: Harness engineering field report (Codex).
+
+  - id: langchain-blog
+    name: LangChain Blog
+    type: eng-blog
+    url: https://blog.langchain.com
+    topics: [harness-engineering, orchestrators, evals]
+    tier: 2
+    lang: en
+    cadence: weekly
+    last_checked: 2026-06-24
+    notes: Anatomy of an agent harness; deep agents.
+
+  - id: openhands-blog
+    name: OpenHands Blog
+    type: eng-blog
+    url: https://openhands.dev/blog
+    topics: [context-eng, evals, harness-engineering]
+    tier: 2
+    lang: en
+    cadence: biweekly
+    last_checked: 2026-06-24
+    notes: Context condensation; evals de skills con baseline sin-skill.
+
+  # ───────────────────────── Agregadores (descubrimiento, ruidoso) ─────────────────────────
+  - id: hn
+    name: Hacker News
+    type: aggregator
+    url: https://hn.algolia.com
+    topics: [all]
+    tier: 3
+    lang: en
+    cadence: weekly
+    last_checked: 2026-06-24
+    notes: Buscar "Claude Code", "spec-driven", "agent harness". Filtrar por puntos.
+
+  - id: augmentcode-tools
+    name: Augment Code (comparativas)
+    type: aggregator
+    url: https://www.augmentcode.com/tools
+    topics: [orchestrators, spec-as-artifact, full-flow]
+    tier: 3
+    lang: en
+    cadence: monthly
+    last_checked: 2026-06-24
+    notes: Comparativas de vendor; útiles pero con sesgo comercial.
+
+# ───────────────────────── Huecos conocidos (objetivos de source-curation) ─────────────────────────
+gaps:
+  - Fuentes en coreano/chino/japonés (MoAI-ADK salió de ahí; hay más).
+  - Reddit (r/ClaudeAI, r/LocalLLaMA) como agregador tier-3.
+  - Newsletters de practicantes aún no identificados.
+  - Repos "trending" de GitHub filtrados por topic (spec-driven-development, ai-agents).
