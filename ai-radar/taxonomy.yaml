@@ -1,0 +1,84 @@
+# taxonomy.yaml — Esquema de clasificación del AI Radar
+#
+# radar-scan encaja cada hallazgo en UNA familia, le asigna uno o más tipos de
+# señal, y (si es un framework/herramienta) lo puntúa en las dimensiones.
+
+version: 0
+
+# ───────────────────────── Familias ─────────────────────────
+# Categorías mutuamente excluyentes (elige la dominante).
+families:
+  - id: full-flow
+    name: Flujo completo (proceso sobre el agente)
+    desc: Imponen spec → plan → ejecución → review. Ej.: Superpowers, GSD, BMAD, Compound, Agent OS.
+
+  - id: autonomous-loops
+    name: Bucles autónomos
+    desc: El agente itera hasta cumplir la spec; git como memoria. Ej.: Ralph, bmalph.
+
+  - id: orchestrators
+    name: Orquestadores / harness de ejecución
+    desc: Coordinan varios agentes (worktrees, kanban, swarms). Ej.: Conductor, Gastown, Antfarm, Claude Squad.
+
+  - id: spec-as-artifact
+    name: La especificación como artefacto
+    desc: Spec-first / spec-anchored / spec-as-source. Ej.: Spec Kit, OpenSpec, Kiro, Tessl.
+
+  - id: harness-engineering
+    name: Harness engineering (primitivas)
+    desc: Técnicas de fiabilidad alrededor del modelo (no el modelo). Ej.: initializer agent, backpressure, dumb zone.
+
+  - id: process-methodology
+    name: Metodología de proceso
+    desc: Métodos, no herramientas. Ej.: SPDD, Agile V, taxonomía SDD.
+
+  - id: ide-native
+    name: IDE / reglas nativas
+    desc: SDD o reglas integradas en el editor. Ej.: Kiro, Cursor rules.
+
+  - id: context-eng
+    name: Context engineering
+    desc: Gestión del context window como recurso. Ej.: condensación, KV-cache, filesystem memory.
+
+# ───────────────────────── Tipos de señal ─────────────────────────
+# Un hallazgo puede tener varios. Ayuda a priorizar el digest.
+signal_types:
+  - new-framework      # framework/sistema nuevo
+  - new-technique      # técnica reutilizable ("idea a robar")
+  - tool-release       # release o herramienta concreta
+  - benchmark          # benchmark/leaderboard de harness o agentes
+  - methodology        # método/proceso
+  - field-report       # informe de uso real con datos
+  - deprecation        # algo que muere/cambia (ej.: Vibe Kanban shutdown)
+
+# ───────────────────────── Dimensiones de puntuación ─────────────────────────
+# Solo para hallazgos tipo framework/herramienta. Escala 1–5.
+dimensions:
+  - id: RIG
+    name: Rigor / gates
+    five: Bloqueo real (hooks / state machine)
+  - id: LIG
+    name: Ligereza
+    five: Cero overhead, productivo en 1h
+  - id: CTX
+    name: Context-eng
+    five: Sub-agentes frescos, git como memoria
+  - id: MAD
+    name: Madurez / comunidad
+    five: Decenas de miles de stars + activo
+  - id: MA
+    name: Multi-agente
+    five: Enjambre de roles especializados
+  - id: POR
+    name: Portabilidad
+    five: 10+ harnesses, sin lock-in
+  - id: FIT
+    name: Encaje agent-toolkit
+    five: Skills + agentmemory + gates; casi tu diseño
+
+# ───────────────────────── Umbral de novedad ─────────────────────────
+# Un hallazgo entra en el digest solo si supera al menos uno:
+novelty_gate:
+  - No existe ya en findings/ ni en el catálogo.
+  - Aporta una técnica nueva ("idea a robar") aunque la herramienta ya se conozca.
+  - Cambia el estado de algo conocido (nueva versión mayor, deprecation, pivote).
