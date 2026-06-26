@@ -9,6 +9,8 @@ Dada una **historia de usuario**, filtras los perfiles `frameworks/*.yaml`, comp
 
 > Una recomendación solo vale lo que valen los datos que la sostienen. Si te apoyas en un perfil de `confidence: low`, dilo. Si no hay buen candidato, dilo y pide ampliar el registro.
 
+> **Regla de decisión fundamental (charter RT):** recomienda por **lo mejor para el propósito de la historia de usuario**, nunca por la fama del framework, su Σ global, ni por ser el más fácil/rápido de adoptar. Si el mejor encaje es más costoso de montar, ese es el que se recomienda (señalando el coste). La facilidad es desempate, no criterio.
+
 ## Contrato
 - **Entrada:** una historia de usuario + restricciones (lenguaje/stack, gates exigidos, multi-agente, presupuesto/tiempo, etc.).
 - **Salida:** shortlist + comparativa + recomendación razonada con caveats, guardada en `recommendations/YYYY-MM-DD-<slug>.md`.

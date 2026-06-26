@@ -17,7 +17,7 @@ Eres el bucle de auto-mejora de la etapa de extracción. Tu propósito NO es des
 ## Flujo
 
 ### 1. Prioriza qué mejorar
-Lee todos los `frameworks/*.yaml`. Ordena por necesidad de atención:
+**Regla de decisión fundamental (charter RT):** prioriza por **lo mejor para el propósito** (qué perfil, mejorado, aporta más valor al sistema), nunca por lo que sea más fácil/rápido de verificar. La facilidad es solo desempate. Bajo esa regla, ordena por necesidad de atención:
 1. `meta.confidence: low` antes que `medium` antes que `high`.
 2. `meta.completeness` más baja primero.
 3. `meta.last_verified` más antiguo primero (los datos caducan: stars, versiones, estado).
