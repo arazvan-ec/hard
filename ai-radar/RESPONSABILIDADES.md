@@ -81,6 +81,18 @@ Esta regla es la primera comprobación de cualquier paso de priorización o reco
 
 **Decisión de modelo:** RT se implementa como **ley transversal, de forma incremental** — un único patrón de auto-mejora reutilizable, instanciado por etapa, empezando por la de más palanca y replicando cuando haya datos. No es una etapa centralizada de reflexión. "Empezar por la de más palanca" se interpreta bajo la regla de decisión: más palanca = más valor para el propósito, no menos esfuerzo.
 
+**Principio de crecimiento (cómo se extiende el sistema):**
+> Siempre que aparezca un **pensamiento o divergencia recurrente** —una capacidad que el proceso
+> necesita y que hoy se resuelve ad-hoc— se convierte en un **skill unitario con su propio
+> meta-loop** (`<cap>` + `<cap>-improve`), no en código suelto. Toda capacidad nace cumpliendo los
+> requisitos de la feature principal y con la propiedad de **auto-evolucionar** dentro del proceso
+> completo. El sistema se extiende **creando loops, no parches**.
+
+**Capacidades transversales** (cruzan R1–R5, nacidas de este principio):
+| Capacidad | Skill | Meta-loop |
+|---|---|---|
+| Presentación (HTML distópico) | `dystopian-render` | `render-improve` (evoluciona `site/_DESIGN.md`) |
+
 ```
                  ┌─────────────────────────────────────┐
    contrato ───► │  ETAPA (proceso abstracto)          │ ───► contrato

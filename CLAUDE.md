@@ -27,6 +27,18 @@ con la propiedad de que **mejora solo en cada ejecución**. Todo vive bajo `ai-r
 Los **stages** hacen el trabajo; los **meta-loops** mejoran el *método* de su etapa (no solo el
 dato) y dejan registro. Cada vuelta debe dejar al sistema mejor que antes.
 
+## Capacidades transversales (cruzan las 5 etapas)
+| Capacidad | Skill | Meta-loop |
+|---|---|---|
+| presentar datos en HTML distópico | `dystopian-render` | `render-improve` (evoluciona `site/_DESIGN.md`) |
+
+## Principio de crecimiento del sistema (ley)
+> Siempre que aparezca un **pensamiento o divergencia recurrente** —una capacidad nueva que el
+> proceso necesita (presentar, validar, exportar, lo que sea)— se convierte en un **skill unitario
+> y auto-evolutivo** con su propio meta-loop, no en código ad-hoc. Cada capacidad cumple los
+> requisitos de la feature principal y crece sola dentro del proceso completo. El sistema se
+> extiende creando loops, no parches.
+
 ## Cómo interactuar (puertas de entrada)
 - **Recomendar:** "Tengo esta historia de usuario: '…'. ¿Qué framework me conviene?" → `framework-fit`
 - **Novedades:** "Haz un barrido de la última semana" → `radar-scan`
@@ -34,6 +46,7 @@ dato) y dejan registro. Cada vuelta debe dejar al sistema mejor que antes.
 - **Ampliar fuentes:** "Encuentra curadores nuevos de harness engineering" → `source-curation`
 - **Afinar el sistema:** "Mejora los perfiles" / "audita las fuentes" / "afina la puntuación" /
   "que las recomendaciones aprendan del último benchmark" → los `*-improve`
+- **Ver en HTML:** "Renderiza esto / muéstramelo en una página distópica" → `dystopian-render`
 
 Las skills están en `ai-radar/skills/` y enlazadas en `.claude/skills/` para que se descubran
 solas (no edites los symlinks; edita el original en `ai-radar/skills/`).
