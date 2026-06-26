@@ -65,6 +65,7 @@ fields:
     first_seen:    "YYYY-MM-DD — primer barrido que lo detectó"
     open_questions: "lista de huecos/dudas concretas → el backlog de extract-improve"
     state_change:  "opcional — descripción de un cambio de estado detectado (nueva versión mayor, deprecation, pivote, cambio de backend) pendiente de que radar-scan lo recoja en findings/"
+    evidence:      "opcional — lista de hallazgos empíricos de R5 (benchmark) que respaldan/corrigen los scores. Cada entrada cita el benchmark. Es lo que sube la confianza de estimación a evidencia."
 
 # Vocabulario controlado de use_cases (R4 filtra sobre esto; extract-improve lo amplía).
 use_case_vocab:

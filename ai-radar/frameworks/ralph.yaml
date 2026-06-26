@@ -47,3 +47,5 @@ meta:
     - "Fijar nº de stars exacto (fuentes dan 14–19k); usar la página primaria del repo."
     - "¿Hay variantes (bmalph) que merezcan perfil propio o son la misma familia?"
     - "Confirmar las dimensiones RIG/MA con un caso de uso documentado, no estimación."
+  evidence:
+    - "benchmark 2026-06-26-parse-duration: el patrón Ralph convergió a 17/17 en 3 iteraciones, PERO solo porque existía un oráculo que consumir; sin él se detiene en falso. Confirma RIG 2 (sin gates propios) y su dependencia de criterios externos."

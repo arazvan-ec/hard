@@ -44,3 +44,5 @@ meta:
   open_questions:
     - "Fijar nº de release/versión concreta (las fuentes dan '55+ releases', no un tag exacto)."
     - "Detallar el flujo exacto spec→plan→tasks→code para afinar RIG."
+  evidence:
+    - "benchmark 2026-06-26-parse-duration: el patrón spec-first logró 17/17 a la primera y generó el oráculo de corrección. Respalda su fuerza en tareas de corrección crítica/especificable."
