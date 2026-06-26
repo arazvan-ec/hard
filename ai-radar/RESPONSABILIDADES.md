@@ -96,26 +96,32 @@ Esta regla es la primera comprobación de cualquier paso de priorización o reco
 
 ## Estado actual (honesto)
 
-| Resp. | Etapa | Artefacto hoy | Contrato | Meta-loop |
+| Resp. | Etapa | Artefacto hoy | Contrato | Meta-loop (RT) |
 |-------|-------|---------------|----------|-----------|
-| R1 | Buscar fuentes | `skills/source-curation` + `sources.yaml` | parcial | ❌ |
-| R2 | Extraer a datos estructurados | `skills/radar-scan` (extrae a prosa, **falta esquema de perfil**) | parcial | ❌ |
-| R3 | Comparar y rankear | `taxonomy.yaml` (**falta catálogo/comparativas**) | parcial | ❌ |
-| R4 | Consultar y recomendar | **no existe** | ❌ | ❌ |
-| R5 | Evaluar empíricamente | **no existe** (norte) | ❌ | ❌ |
-| RT | Auto-mejora (ley) | este documento | este documento | ❌ (patrón a construir) |
+| R1 | Buscar fuentes | `skills/source-curation` + `sources.yaml` (+ señal `yield`) | ✅ | ✅ `source-curation-improve` |
+| R2 | Extraer a datos estructurados | `skills/radar-scan` + `frameworks/_SCHEMA.yaml` + perfiles | ✅ | ✅ `extract-improve` (vuelta 1 dada) |
+| R3 | Comparar y rankear | `taxonomy.yaml` (anclas 1/3/5 completas) | ✅ | ✅ `ranking-improve` (vuelta 1 dada) |
+| R4 | Consultar y recomendar | `skills/framework-fit` + `recommendations/` | ✅ | ✅ `match-improve` (vuelta 1 dada) |
+| R5 | Evaluar empíricamente | `skills/benchmark` + `benchmarks/` (F2 hecho) | ✅ | ✅ auto-mejora interna (`eval-improve`) |
+| RT | Auto-mejora (ley) + regla de decisión | este documento | este documento | ✅ ley grabada, 5/5 etapas cubiertas |
 
-**Cuello de botella crítico:** R3, R4 y R5 dependen de que R2 produzca **datos estructurados** (perfiles `frameworks/<id>.yaml`). Sin el esquema de perfil, no hay filtros, ni comparativas, ni recomendación. **Ese esquema es el siguiente trabajo.**
+**Hito:** las 5 etapas operativas tienen contrato y meta-loop; la ley RT y la regla de decisión
+fundamental gobiernan todo el sistema. La arquitectura del charter está **completa**.
+
+**Lo que falta es profundidad, no arquitectura:**
+- Más **perfiles** (`frameworks/`) para que las comparativas de R4 tengan masa.
+- Más **evidencia** (benchmarks R5) — F3 con herramientas/agentes reales y casos ocultos.
+- Las primeras vueltas de los meta-loops son de **evidencia media**; se endurecen con más barridos.
 
 ---
 
-## Orden de construcción propuesto
+## Orden de construcción — completado
 
-1. **Esquema de perfil de framework** (`frameworks/_SCHEMA.yaml`) — los atributos comparables que habilitan R3/R4. *(desbloquea todo)*
-2. **Sembrar perfiles** desde el digest 2026-06-26 (Ralph, Spec Kit, OpenSpec, Beads, ReverbCode…).
-3. **R4 — skill `framework-fit`**: historia de usuario → comparativa + recomendación (sobre datos).
-4. **RT — primer meta-loop** sobre la etapa de más palanca (probablemente R2 extracción), como patrón replicable.
-5. **R5 — benchmark** por fases (manual → automatizado).
+1. ✅ Esquema de perfil de framework (`frameworks/_SCHEMA.yaml`).
+2. ✅ Perfiles sembrados (ralph, spec-kit, beads).
+3. ✅ R4 `framework-fit` + recomendación demostrada.
+4. ✅ RT — meta-loops en las 5 etapas + regla de decisión fundamental.
+5. ✅ R5 `benchmark` — F1 protocolo + F2 manual ejecutado. Pendiente: **F3 automatizado/real**.
 
 ---
 
