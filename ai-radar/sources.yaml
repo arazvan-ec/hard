@@ -30,7 +30,7 @@ sources:
     tier: 2
     lang: en
     cadence: weekly
-    last_checked: 2026-06-24
+    last_checked: 2026-06-26
     notes: Lista madre de SDD. Cambios = nuevos frameworks de spec.
 
   - id: awesome-ai-dev
@@ -52,7 +52,7 @@ sources:
     tier: 1
     lang: en
     cadence: weekly
-    last_checked: 2026-06-24
+    last_checked: 2026-06-26
     notes: Oro. Apunta a fuentes primarias (Anthropic, OpenAI, LangChain, Thoughtworks, HumanLayer).
 
   - id: awesome-orchestrators
@@ -63,7 +63,7 @@ sources:
     tier: 2
     lang: en
     cadence: weekly
-    last_checked: 2026-06-24
+    last_checked: 2026-06-26
     notes: ~50 orquestadores (worktrees, kanban, swarms).
 
   # ───────────────────────── Curadores: blogs (señal primaria) ─────────────────────────
@@ -75,7 +75,7 @@ sources:
     tier: 1
     lang: en
     cadence: weekly
-    last_checked: 2026-06-24
+    last_checked: 2026-06-26
     notes: Origen de Ralph. Técnicas antes que nadie. Tags /ai.
 
   - id: yegge
@@ -86,7 +86,7 @@ sources:
     tier: 1
     lang: en
     cadence: weekly
-    last_checked: 2026-06-24
+    last_checked: 2026-06-26
     notes: Gas Town, Beads, MEOW. Memoria institucional para agentes.
 
   - id: simonwillison
@@ -97,7 +97,7 @@ sources:
     tier: 1
     lang: en
     cadence: daily
-    last_checked: 2026-06-24
+    last_checked: 2026-06-26
     notes: Índice por tags excelente. Práctico, honesto, alta frecuencia.
 
   - id: addyosmani
@@ -119,7 +119,7 @@ sources:
     tier: 1
     lang: en
     cadence: weekly
-    last_checked: 2026-06-24
+    last_checked: 2026-06-26
     notes: 12-factor agents, dumb zone (40%), backpressure, advanced context engineering.
 
   - id: thoughtworks-genai
@@ -239,7 +239,7 @@ sources:
     tier: 1
     lang: en
     cadence: weekly
-    last_checked: 2026-06-24
+    last_checked: 2026-06-26
     notes: Effective harnesses, context engineering, multi-agent research, evals.
 
   - id: openai-index
@@ -295,7 +295,7 @@ sources:
     tier: 3
     lang: en
     cadence: monthly
-    last_checked: 2026-06-24
+    last_checked: 2026-06-26
     notes: Comparativas de vendor; útiles pero con sesgo comercial.
 
 # ───────────────────────── Huecos conocidos (objetivos de source-curation) ─────────────────────────
