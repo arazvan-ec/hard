@@ -39,9 +39,14 @@ fields:
   scores:        "RIG, LIG, CTX, MAD, MA, POR, FIT — cada una 1..5. sigma = suma /35"
 
   # — Estado / madurez (para MAD y para detectar deprecations) —
+  # REGLA (añadida por extract-improve 2026-06-26): stars y last_release se
+  # verifican SIEMPRE contra la página primaria del repo, nunca contra un
+  # agregador. Si las fuentes varían, registra el valor central y anota el rango
+  # en un comentario en línea. Los agregadores caducan rápido (visto: spec-kit
+  # 90k→115k en semanas; beads v0.59→v1.0.2).
   maturity:
-    stars:       "estrellas de GitHub si aplica (entero) o null"
-    last_release: "versión/fecha del último release conocido, o null"
+    stars:       "estrellas de GitHub si aplica (entero) o null. Verificado en repo primario."
+    last_release: "versión/fecha del último release conocido (repo primario), o null"
     active:      "true | false | unknown — ¿desarrollo activo?"
     license:     "licencia, o null"
     status:      "active | deprecated | shutdown"
@@ -59,6 +64,7 @@ fields:
     last_verified: "YYYY-MM-DD del último contraste con fuente"
     first_seen:    "YYYY-MM-DD — primer barrido que lo detectó"
     open_questions: "lista de huecos/dudas concretas → el backlog de extract-improve"
+    state_change:  "opcional — descripción de un cambio de estado detectado (nueva versión mayor, deprecation, pivote, cambio de backend) pendiente de que radar-scan lo recoja en findings/"
 
 # Vocabulario controlado de use_cases (R4 filtra sobre esto; extract-improve lo amplía).
 use_case_vocab:
