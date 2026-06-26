@@ -1,0 +1,99 @@
+# _SCHEMA.yaml — Esquema de perfil de framework (contrato de R2)
+#
+# Cada framework descubierto se guarda como frameworks/<id>.yaml siguiendo este
+# esquema. El perfil es DATO ESTRUCTURADO (no prosa): es lo que habilita
+#   R3 (comparar/rankear), R4 (recomendar ante una historia de usuario) y
+#   R5 (evaluar empíricamente).
+#
+# ─────────────────────────────────────────────────────────────────────────────
+# EL PERFIL ES EL ESTADO DEL LOOP
+# Un perfil nunca está "terminado". El bloque `meta` (completeness, confidence,
+# open_questions) es lo que el meta-loop `extract-improve` observa y mejora en
+# cada vuelta: resolver una open_question, subir completeness, verificar un dato
+# con su fuente primaria. Cada loop debe dejar al menos un perfil más completo o
+# más fiable que antes. Esa es la auto-mejora unitaria de R2 (ley RT).
+# ─────────────────────────────────────────────────────────────────────────────
+
+schema_version: 0
+
+# Significado de cada campo (este bloque es documentación, no un perfil real):
+fields:
+
+  # — Identidad —
+  id:            "slug único, == nombre de fichero. Ej.: spec-kit"
+  name:          "nombre legible. Ej.: GitHub Spec Kit"
+  url:           "URL canónica (repo o web del proyecto)"
+  family:        "UNA familia de taxonomy.yaml (full-flow, autonomous-loops, orchestrators, spec-as-artifact, harness-engineering, process-methodology, ide-native, context-eng)"
+  signal_types:  "lista de tipos de señal de taxonomy.yaml (new-framework, new-technique, tool-release, benchmark, methodology, field-report, deprecation)"
+  one_liner:     "qué es, en una frase parafraseada"
+
+  # — Encaje con historias de usuario (lo que consume R4) —
+  # Estos son los campos sobre los que filtramos para recomendar.
+  use_cases:     "lista de tags de tarea que resuelve. Vocabulario controlado abajo (use_case_vocab)"
+  languages:     "lenguajes/stacks soportados, o [any]"
+  best_for:      "1-2 frases: en qué historia de usuario brilla"
+  not_for:       "1-2 frases: cuándo NO elegirlo (honesto)"
+  requires:      "prerrequisitos duros (un harness concreto, un runtime, etc.)"
+
+  # — Puntuación (dimensiones de taxonomy.yaml, escala 1–5) —
+  scores:        "RIG, LIG, CTX, MAD, MA, POR, FIT — cada una 1..5. sigma = suma /35"
+
+  # — Estado / madurez (para MAD y para detectar deprecations) —
+  maturity:
+    stars:       "estrellas de GitHub si aplica (entero) o null"
+    last_release: "versión/fecha del último release conocido, o null"
+    active:      "true | false | unknown — ¿desarrollo activo?"
+    license:     "licencia, o null"
+    status:      "active | deprecated | shutdown"
+
+  # — La señal accionable —
+  steal:         "💡 la técnica reutilizable ('idea a robar'), parafraseada"
+
+  # — Trazabilidad —
+  sources:       "lista de {url, date} que sustentan el perfil. Toda afirmación debe ser trazable"
+
+  # — Estado del loop (lo que mejora extract-improve) —
+  meta:
+    completeness: "0.0–1.0 — cuántos campos relevantes están rellenos y verificados"
+    confidence:   "low | medium | high — cuánta confianza en los datos (fuente primaria > agregador)"
+    last_verified: "YYYY-MM-DD del último contraste con fuente"
+    first_seen:    "YYYY-MM-DD — primer barrido que lo detectó"
+    open_questions: "lista de huecos/dudas concretas → el backlog de extract-improve"
+
+# Vocabulario controlado de use_cases (R4 filtra sobre esto; extract-improve lo amplía).
+use_case_vocab:
+  - greenfield            # construir algo nuevo desde cero
+  - porting               # migrar codebase entre lenguajes/frameworks
+  - refactoring           # reestructurar código existente
+  - spec-authoring        # escribir/mantener la especificación como artefacto
+  - long-horizon-memory   # mantener estado/plan a través de sesiones largas
+  - multi-agent-orchestration  # coordinar varios agentes
+  - ci-autofix            # arreglar CI / merge / review automáticamente
+  - autonomous-long-run   # correr horas sin intervención humana
+  - context-management    # gestionar el context window como recurso
+  - evaluation            # evaluar/puntuar resultados de agentes
+
+# Plantilla mínima a copiar para un perfil nuevo:
+# (copia este bloque a frameworks/<id>.yaml y rellénalo)
+template:
+  id:
+  name:
+  url:
+  family:
+  signal_types: []
+  one_liner:
+  use_cases: []
+  languages: [any]
+  best_for:
+  not_for:
+  requires:
+  scores: { RIG: , LIG: , CTX: , MAD: , MA: , POR: , FIT: , sigma: }
+  maturity: { stars: , last_release: , active: unknown, license: , status: active }
+  steal:
+  sources: []
+  meta:
+    completeness: 0.0
+    confidence: low
+    last_verified:
+    first_seen:
+    open_questions: []
