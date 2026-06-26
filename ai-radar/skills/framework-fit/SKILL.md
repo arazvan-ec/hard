@@ -34,6 +34,7 @@ Para cada candidato, evalúa el encaje **con ESTA historia**, no su Σ global:
 - `best_for` / `not_for` aplicados al caso.
 - Las **dimensiones que importan para esta historia** (p. ej. si pide rigor → pesa RIG; si pide memoria larga → pesa CTX/MA).
 - **Confianza del dato** (`meta.confidence`): un encaje aparente sobre datos `low` vale menos.
+- **Quién aporta el oráculo de corrección** *(aprendido del benchmark F2 vía match-improve; aplica a historias de **corrección crítica/especificable**)*: un proceso que **genera sus propios criterios de corrección** (spec-first) vale más que uno que **depende de un oráculo externo** (bucle autónomo). En esas historias, prefiere recomendar la **combinación**: el que aporta el oráculo (spec-as-artifact) + el que itera hasta cumplirlo (autonomous-loop). No globalices esto a historias donde la corrección no es el eje.
 
 ### 4. Comparativa
 Tabla de los candidatos × las dimensiones/atributos relevantes para esta historia (no las 7 siempre: solo las que deciden). Marca claramente el porqué de cada celda.
