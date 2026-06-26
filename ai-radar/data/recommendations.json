@@ -1,0 +1,69 @@
+{
+  "generated": "2026-06-26",
+  "kind": "simulaciones",
+  "note": "Casos sintéticos de framework-fit (R4) sobre 28 perfiles. Aplican el factor 'oráculo de corrección' del benchmark F2.",
+  "cases": [
+    {
+      "id": "SIM-1",
+      "title": "Migración con tests ya existentes",
+      "oracle": "presente",
+      "story": "Migrar un microservicio de Express a Fastify sin cambiar el comportamiento. Tenemos buena cobertura de tests.",
+      "requirements": ["porting", "refactoring", "corrección crítica", "oráculo YA existe (tests)"],
+      "candidates": [
+        {"framework": "Ralph / bmalph", "fit": "Alto", "why": "porting + autonomous-long-run: itera hasta que los tests pasen. El oráculo ya está → su debilidad no aplica.", "confidence": "media"},
+        {"framework": "Aider", "fit": "Medio-alto", "why": "refactor git-native, cada cambio un commit; control fino diff a diff.", "confidence": "media"},
+        {"framework": "Spec Kit", "fit": "Bajo", "why": "no hace falta crear spec: el comportamiento ya lo fijan los tests.", "confidence": "alta"}
+      ],
+      "recommendation": "Ralph (o bmalph) como motor del porting, sobre Claude Code/Codex, usando la suite de tests como condición de terminación. Aider como alternativa para revisar diff a diff.",
+      "caveat": "Sin gates extra; fía la corrección 100% a la cobertura existente. Factor oráculo: como YA existe, el loop autónomo es ideal."
+    },
+    {
+      "id": "SIM-2",
+      "title": "Librería nueva muy correcta, sin tests aún",
+      "oracle": "ausente",
+      "story": "Construir desde cero una librería de validación de IBAN/SWIFT con muchos edge-cases; tiene que ser muy correcta.",
+      "requirements": ["greenfield", "corrección crítica", "especificable", "NO hay oráculo todavía"],
+      "candidates": [
+        {"framework": "Superpowers", "fit": "Alto", "why": "flujo de 7 fases con TDD obligatorio: crea el oráculo como parte del proceso.", "confidence": "media (★224k verificado)"},
+        {"framework": "Spec Kit / OpenSpec", "fit": "Alto", "why": "enumeran casos como spec antes de codificar → generan el oráculo.", "confidence": "alta"},
+        {"framework": "Ralph", "fit": "Medio", "why": "excelente convergiendo, pero necesita el oráculo que aquí no existe.", "confidence": "media"}
+      ],
+      "recommendation": "Combinación. Spec-as-artifact (Spec Kit u OpenSpec) o Superpowers para enumerar edge-cases y crear el oráculo → luego un loop para converger. No empezar por Ralph solo.",
+      "caveat": "OpenSpec aporta además gate de estado (rigor). Factor oráculo aplicado: aquí manda quien lo crea — el aprendizaje del F2."
+    },
+    {
+      "id": "SIM-3",
+      "title": "Equipo grande, multi-agente, proyecto de meses",
+      "oracle": "n/a",
+      "story": "Equipo de 5, proyecto grande de varios meses, varios agentes en paralelo sin pisarse y sin perder el plan.",
+      "requirements": ["multi-agent-orchestration", "long-horizon-memory", "fuente de verdad"],
+      "candidates": [
+        {"framework": "Gastown / ReverbCode", "fit": "orquestador", "why": "flota de agentes en worktrees + enrutado de CI/review/conflictos.", "confidence": "baja (stars null)"},
+        {"framework": "Beads", "fit": "memoria", "why": "grafo de plan/dependencias en git, merge a nivel de celda multi-agente.", "confidence": "alta"},
+        {"framework": "Spec Kit", "fit": "fuente de verdad", "why": "la spec versionada alinea a humanos y agentes.", "confidence": "alta"}
+      ],
+      "recommendation": "Stack de tres piezas: orquestador con worktrees (ReverbCode para enrutado automático; Gastown para flota grande) + Beads (memoria/plan) + Spec Kit (verdad compartida).",
+      "caveat": "Los orquestadores en confidence:low (stars sin verificar) → conviene extract-improve antes de comprometerse. Falta un full-flow con gates duros en el registro."
+    },
+    {
+      "id": "SIM-4",
+      "title": "Dev solo, rápido, sin lock-in",
+      "oracle": "n/a",
+      "story": "Dev en solitario, productivo ya, sin atarse a un vendor ni montar mucha infraestructura.",
+      "requirements": ["ligereza (LIG alta)", "portabilidad / BYOK", "bajo overhead"],
+      "candidates": [
+        {"framework": "Cline", "fit": "Alto", "why": "Apache-2.0, BYOK total (Anthropic, OpenAI, Gemini, OpenRouter…), sidebar VS Code.", "confidence": "media (★61k)"},
+        {"framework": "Aider", "fit": "Alto", "why": "git-native, CLI, multi-modelo, cero ceremonia.", "confidence": "media (★44k)"},
+        {"framework": "GSD", "fit": "Medio", "why": "proceso ligero ('Lean Orchestrator', 15% de contexto) si quiere algo de estructura.", "confidence": "baja"},
+        {"framework": "Kiro", "fit": "Bajo-medio", "why": "el más ligero (3 .md) pero IDE propio = algo de lock-in de entorno.", "confidence": "baja"}
+      ],
+      "recommendation": "Cline o Aider como agente (independencia de vendor + arranque inmediato). Si quiere un mínimo de proceso sin peso, GSD encima.",
+      "caveat": "GSD/Kiro en confidence:low; Cline/Aider verificados (vuelta 2 de extract-improve)."
+    }
+  ],
+  "lessons": [
+    "El sistema no da siempre un único ganador: en 2 de 4 casos la mejor respuesta es una combinación.",
+    "El factor oráculo de corrección (del F2) cambia la recomendación entre SIM-1 (oráculo existe → loop) y SIM-2 (no existe → spec-first primero).",
+    "Las recomendaciones exponen su propia incertidumbre: donde el dato es low, lo dicen y piden extract-improve."
+  ]
+}

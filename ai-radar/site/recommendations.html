@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OPERATIONS // FRAMEWORK-FIT — AI Radar</title>
+<meta name="description" content="Registro de operaciones: simulaciones del recomendador framework-fit sobre 28 frameworks.">
+<style>
+  :root{--void:#08080a;--panel:#101014;--panel2:#16161c;--line:#26262e;--ash:#cfc9bd;
+    --dim:#76736a;--faint:#4a4842;--hazard:#e8b21f;--danger:#d23b1e;--cyan:#45c0cf;--ok:#8fb04a;
+    --mono:"SF Mono",ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--void);color:var(--ash);font-family:var(--mono);font-size:15px;
+    line-height:1.6;overflow-x:hidden}
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;
+    background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0,rgba(0,0,0,.16) 1px,transparent 1px,transparent 3px);
+    mix-blend-mode:multiply;animation:flick 6s steps(60) infinite}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:9998;
+    background:radial-gradient(120% 90% at 50% 0%,transparent 55%,rgba(0,0,0,.55) 100%)}
+  @keyframes flick{0%,97%{opacity:1}98%{opacity:.82}99%{opacity:.94}100%{opacity:1}}
+  @media (prefers-reduced-motion:reduce){body::after{animation:none}.glitch::before,.glitch::after{display:none}}
+  a{color:var(--cyan);text-decoration:none}a:hover{color:var(--hazard);text-decoration:underline}
+  a:focus-visible{outline:2px solid var(--hazard);outline-offset:2px}
+  .wrap{max-width:980px;margin:0 auto;padding:0 22px}
+  .hazard-bar{height:14px;background:repeating-linear-gradient(45deg,var(--hazard) 0 16px,#000 16px 32px);opacity:.85}
+  header{border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(232,178,31,.05),transparent 70%),var(--void)}
+  .tag-class{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:11px;
+    letter-spacing:.22em;color:var(--danger);text-transform:uppercase;padding:14px 0 10px;border-bottom:1px dashed var(--line)}
+  .blink{animation:blink 1.4s steps(2) infinite}@keyframes blink{50%{opacity:.25}}
+  h1.glitch{font-size:clamp(38px,10vw,86px);line-height:.92;margin:28px 0 6px;font-weight:800;
+    letter-spacing:-.02em;position:relative;text-transform:uppercase}
+  .glitch::before,.glitch::after{content:attr(data-t);position:absolute;left:0;top:0;width:100%;overflow:hidden}
+  .glitch::before{color:var(--danger);transform:translate(-2px,0);clip-path:inset(0 0 62% 0);animation:gl1 3.2s infinite linear alternate}
+  .glitch::after{color:var(--cyan);transform:translate(2px,0);clip-path:inset(58% 0 0 0);animation:gl2 2.7s infinite linear alternate}
+  @keyframes gl1{0%,92%{transform:translate(-2px,0)}93%{transform:translate(-6px,1px)}100%{transform:translate(-2px,0)}}
+  @keyframes gl2{0%,90%{transform:translate(2px,0)}91%{transform:translate(7px,-1px)}100%{transform:translate(2px,0)}}
+  .sub{color:var(--dim);max-width:70ch;margin:14px 0 24px}
+  section{padding:40px 0;border-bottom:1px solid var(--line)}
+  .eyebrow{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--danger);
+    display:flex;align-items:center;gap:12px;margin:0 0 8px}
+  .eyebrow::before{content:"";width:34px;height:2px;background:var(--danger)}
+  .case{background:var(--panel);border:1px solid var(--line);margin:18px 0;padding:0}
+  .case .top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
+    padding:13px 18px;border-bottom:1px solid var(--line);background:var(--panel2)}
+  .case .cid{font-size:12px;color:var(--faint);letter-spacing:.16em}
+  .case h3{margin:0;font-size:19px;color:var(--ash)}
+  .orc{font-size:10px;letter-spacing:.12em;padding:3px 8px;border:1px solid;text-transform:uppercase;font-weight:700}
+  .orc.presente{color:var(--ok);border-color:rgba(143,176,74,.5)}
+  .orc.ausente{color:var(--danger);border-color:var(--danger)}
+  .orc.na{color:var(--faint);border-color:var(--line)}
+  .case .body{padding:16px 18px;display:flex;flex-direction:column;gap:14px}
+  .story{border-left:3px solid var(--hazard);padding:6px 0 6px 14px;color:var(--ash);font-style:italic}
+  .chips{display:flex;flex-wrap:wrap;gap:7px}
+  .chip{font-size:11px;border:1px solid var(--line);padding:4px 9px;color:var(--dim);background:var(--panel2)}
+  .tbl-wrap{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:520px}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--faint);font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+  td .fw{color:var(--ash);font-weight:700}
+  .fit{font-size:11px;padding:2px 7px;border:1px solid var(--line);white-space:nowrap}
+  .fit.alto{color:var(--ok);border-color:rgba(143,176,74,.4)}
+  .fit.medio,.fit.medioalto{color:var(--hazard);border-color:rgba(232,178,31,.4)}
+  .fit.bajo,.fit.bajomedio{color:var(--dim)}
+  .conf{font-size:11px;color:var(--faint)}
+  .rec{background:var(--panel2);border-left:3px solid var(--ok);padding:11px 14px}
+  .rec .k{display:block;color:var(--ok);font-size:10px;letter-spacing:.14em;margin-bottom:4px}
+  .cav{background:var(--panel2);border-left:3px solid var(--danger);padding:11px 14px;color:var(--dim);font-size:13.5px}
+  .cav .k{display:block;color:var(--danger);font-size:10px;letter-spacing:.14em;margin-bottom:4px}
+  .lessons{list-style:none;padding:0;margin:8px 0 0;counter-reset:l}
+  .lessons li{counter-increment:l;padding:11px 0 11px 40px;border-top:1px solid var(--line);position:relative;color:var(--dim)}
+  .lessons li::before{content:"0" counter(l);position:absolute;left:0;top:11px;color:var(--hazard);font-weight:800}
+  footer{padding:34px 0 64px}.stamp{font-size:11px;color:var(--faint);letter-spacing:.16em}
+  .meta-row{display:flex;flex-wrap:wrap;gap:6px 24px;font-size:12px;color:var(--dim);padding:0 0 22px}
+  .meta-row b{color:var(--ash)}
+</style>
+</head>
+<body>
+<div class="hazard-bar"></div>
+<header><div class="wrap">
+  <div class="tag-class"><span>▮ CLASSIFIED // FRAMEWORK-FIT OPERATIONS LOG</span><span class="blink">● REC · R4</span></div>
+  <h1 class="glitch" data-t="OPERATIONS">OPERATIONS</h1>
+  <p class="sub" id="note"></p>
+  <div class="meta-row" id="meta"></div>
+</div></header>
+<main>
+  <section class="wrap"><p class="eyebrow">Casos de simulación</p><div id="cases"></div></section>
+  <section class="wrap"><p class="eyebrow">Lectura transversal</p><ul class="lessons" id="lessons"></ul></section>
+  <footer class="wrap"><p class="stamp" id="stamp"></p></footer>
+</main>
+<script id="data" type="application/json">{
+  "generated": "2026-06-26",
+  "kind": "simulaciones",
+  "note": "Casos sintéticos de framework-fit (R4) sobre 28 perfiles. Aplican el factor 'oráculo de corrección' del benchmark F2.",
+  "cases": [
+    {
+      "id": "SIM-1",
+      "title": "Migración con tests ya existentes",
+      "oracle": "presente",
+      "story": "Migrar un microservicio de Express a Fastify sin cambiar el comportamiento. Tenemos buena cobertura de tests.",
+      "requirements": ["porting", "refactoring", "corrección crítica", "oráculo YA existe (tests)"],
+      "candidates": [
+        {"framework": "Ralph / bmalph", "fit": "Alto", "why": "porting + autonomous-long-run: itera hasta que los tests pasen. El oráculo ya está → su debilidad no aplica.", "confidence": "media"},
+        {"framework": "Aider", "fit": "Medio-alto", "why": "refactor git-native, cada cambio un commit; control fino diff a diff.", "confidence": "media"},
+        {"framework": "Spec Kit", "fit": "Bajo", "why": "no hace falta crear spec: el comportamiento ya lo fijan los tests.", "confidence": "alta"}
+      ],
+      "recommendation": "Ralph (o bmalph) como motor del porting, sobre Claude Code/Codex, usando la suite de tests como condición de terminación. Aider como alternativa para revisar diff a diff.",
+      "caveat": "Sin gates extra; fía la corrección 100% a la cobertura existente. Factor oráculo: como YA existe, el loop autónomo es ideal."
+    },
+    {
+      "id": "SIM-2",
+      "title": "Librería nueva muy correcta, sin tests aún",
+      "oracle": "ausente",
+      "story": "Construir desde cero una librería de validación de IBAN/SWIFT con muchos edge-cases; tiene que ser muy correcta.",
+      "requirements": ["greenfield", "corrección crítica", "especificable", "NO hay oráculo todavía"],
+      "candidates": [
+        {"framework": "Superpowers", "fit": "Alto", "why": "flujo de 7 fases con TDD obligatorio: crea el oráculo como parte del proceso.", "confidence": "media (★224k verificado)"},
+        {"framework": "Spec Kit / OpenSpec", "fit": "Alto", "why": "enumeran casos como spec antes de codificar → generan el oráculo.", "confidence": "alta"},
+        {"framework": "Ralph", "fit": "Medio", "why": "excelente convergiendo, pero necesita el oráculo que aquí no existe.", "confidence": "media"}
+      ],
+      "recommendation": "Combinación. Spec-as-artifact (Spec Kit u OpenSpec) o Superpowers para enumerar edge-cases y crear el oráculo → luego un loop para converger. No empezar por Ralph solo.",
+      "caveat": "OpenSpec aporta además gate de estado (rigor). Factor oráculo aplicado: aquí manda quien lo crea — el aprendizaje del F2."
+    },
+    {
+      "id": "SIM-3",
+      "title": "Equipo grande, multi-agente, proyecto de meses",
+      "oracle": "n/a",
+      "story": "Equipo de 5, proyecto grande de varios meses, varios agentes en paralelo sin pisarse y sin perder el plan.",
+      "requirements": ["multi-agent-orchestration", "long-horizon-memory", "fuente de verdad"],
+      "candidates": [
+        {"framework": "Gastown / ReverbCode", "fit": "orquestador", "why": "flota de agentes en worktrees + enrutado de CI/review/conflictos.", "confidence": "baja (stars null)"},
+        {"framework": "Beads", "fit": "memoria", "why": "grafo de plan/dependencias en git, merge a nivel de celda multi-agente.", "confidence": "alta"},
+        {"framework": "Spec Kit", "fit": "fuente de verdad", "why": "la spec versionada alinea a humanos y agentes.", "confidence": "alta"}
+      ],
+      "recommendation": "Stack de tres piezas: orquestador con worktrees (ReverbCode para enrutado automático; Gastown para flota grande) + Beads (memoria/plan) + Spec Kit (verdad compartida).",
+      "caveat": "Los orquestadores en confidence:low (stars sin verificar) → conviene extract-improve antes de comprometerse. Falta un full-flow con gates duros en el registro."
+    },
+    {
+      "id": "SIM-4",
+      "title": "Dev solo, rápido, sin lock-in",
+      "oracle": "n/a",
+      "story": "Dev en solitario, productivo ya, sin atarse a un vendor ni montar mucha infraestructura.",
+      "requirements": ["ligereza (LIG alta)", "portabilidad / BYOK", "bajo overhead"],
+      "candidates": [
+        {"framework": "Cline", "fit": "Alto", "why": "Apache-2.0, BYOK total (Anthropic, OpenAI, Gemini, OpenRouter…), sidebar VS Code.", "confidence": "media (★61k)"},
+        {"framework": "Aider", "fit": "Alto", "why": "git-native, CLI, multi-modelo, cero ceremonia.", "confidence": "media (★44k)"},
+        {"framework": "GSD", "fit": "Medio", "why": "proceso ligero ('Lean Orchestrator', 15% de contexto) si quiere algo de estructura.", "confidence": "baja"},
+        {"framework": "Kiro", "fit": "Bajo-medio", "why": "el más ligero (3 .md) pero IDE propio = algo de lock-in de entorno.", "confidence": "baja"}
+      ],
+      "recommendation": "Cline o Aider como agente (independencia de vendor + arranque inmediato). Si quiere un mínimo de proceso sin peso, GSD encima.",
+      "caveat": "GSD/Kiro en confidence:low; Cline/Aider verificados (vuelta 2 de extract-improve)."
+    }
+  ],
+  "lessons": [
+    "El sistema no da siempre un único ganador: en 2 de 4 casos la mejor respuesta es una combinación.",
+    "El factor oráculo de corrección (del F2) cambia la recomendación entre SIM-1 (oráculo existe → loop) y SIM-2 (no existe → spec-first primero).",
+    "Las recomendaciones exponen su propia incertidumbre: donde el dato es low, lo dicen y piden extract-improve."
+  ]
+}</script>
+<script>
+(function(){
+  var D=JSON.parse(document.getElementById('data').textContent);
+  var $=function(i){return document.getElementById(i)};
+  var esc=function(s){return String(s==null?'':s).replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})};
+  var cls=function(s){return String(s||'').toLowerCase().replace(/[^a-z]/g,'')};
+  $('note').textContent=D.note;
+  $('meta').innerHTML='<span><b>'+D.cases.length+'</b> CASOS</span><span>BARRIDO: <b>'+esc(D.generated)+'</b></span><span>MOTOR: <b>framework-fit (R4)</b></span>';
+  $('cases').innerHTML=D.cases.map(function(c){
+    var rows=c.candidates.map(function(x){
+      return '<tr><td class="fw">'+esc(x.framework)+'</td>'+
+        '<td><span class="fit '+cls(x.fit)+'">'+esc(x.fit)+'</span></td>'+
+        '<td>'+esc(x.why)+'</td><td class="conf">'+esc(x.confidence)+'</td></tr>';
+    }).join('');
+    return '<article class="case"><div class="top">'+
+      '<div><span class="cid">'+esc(c.id)+'</span> &nbsp; <h3 style="display:inline">'+esc(c.title)+'</h3></div>'+
+      '<span class="orc '+cls(c.oracle)+'">ORÁCULO: '+esc(c.oracle)+'</span></div>'+
+      '<div class="body">'+
+      '<div class="story">'+esc(c.story)+'</div>'+
+      '<div class="chips">'+c.requirements.map(function(r){return '<span class="chip">'+esc(r)+'</span>'}).join('')+'</div>'+
+      '<div class="tbl-wrap"><table><thead><tr><th>Framework</th><th>Encaje</th><th>Por qué</th><th>Confianza</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
+      '<div class="rec"><span class="k">▸ RECOMENDACIÓN</span>'+esc(c.recommendation)+'</div>'+
+      '<div class="cav"><span class="k">⚠ CAVEAT</span>'+esc(c.caveat)+'</div>'+
+      '</div></article>';
+  }).join('');
+  $('lessons').innerHTML=D.lessons.map(function(l){return '<li>'+esc(l)+'</li>'}).join('');
+  $('stamp').textContent='// GENERADO POR dystopian-render · datos: data/recommendations.json · '+D.generated;
+})();
+</script>
+</body>
+</html>
