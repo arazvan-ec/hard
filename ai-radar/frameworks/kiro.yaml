@@ -1,0 +1,42 @@
+# AWS Kiro — perfil importado de data/frameworks.json (2026-06-26).
+# Generado por integración del dossier loop-engineering; pendiente de extract-improve.
+id: kiro
+name: AWS Kiro
+url: https://kiro.dev
+category: spec-as-artifact
+family: spec-as-artifact
+signal_types:
+- new-framework
+- tool-release
+one_liner: 'IDE agéntico construido alrededor de SDD: obliga a formalizar la intención antes de generar
+  código.'
+use_cases:
+- spec-authoring
+- greenfield
+languages:
+- any
+best_for: null
+not_for: null
+requires: null
+scores: null
+maturity:
+  stars: null
+  last_release: GA (free + paid)
+  active: true
+  license: null
+  status: active
+  notes: el IDE agéntico más integrado
+steal: El más ligero (3 ficheros markdown), basado en VS Code; rigor estructurado en vez de prompting
+  iterativo.
+loop_role: IDE-nativo que ancla en spec.
+sources:
+- url: https://kiro.dev
+  date: '2026-06-26'
+meta:
+  completeness: 0.45
+  confidence: low
+  last_verified: '2026-06-26'
+  first_seen: '2026-06-26'
+  open_questions:
+  - Verificar stars/versión en la fuente primaria (importado de data/frameworks.json).
+  - Definir best_for/not_for y puntuar las 7 dimensiones con evidencia.

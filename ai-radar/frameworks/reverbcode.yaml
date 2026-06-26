@@ -1,0 +1,40 @@
+# ReverbCode (Composio) — perfil importado de data/frameworks.json (2026-06-26).
+# Generado por integración del dossier loop-engineering; pendiente de extract-improve.
+id: reverbcode
+name: ReverbCode (Composio)
+url: https://github.com/ComposioHQ/agent-orchestrator
+category: orchestrator
+family: orchestrators
+signal_types:
+- tool-release
+one_liner: Daemon en Go que supervisa muchas sesiones de agente, cada una en su worktree, y enruta CI/review/conflictos
+  al agente correcto. 23 adaptadores.
+use_cases:
+- multi-agent-orchestration
+- ci-autofix
+languages:
+- any
+best_for: null
+not_for: null
+requires: null
+scores: null
+maturity:
+  stars: null
+  last_release: null
+  active: true
+  license: null
+  status: active
+  notes: claude-code, codex, cursor, aider, amp…
+steal: Enrutado de backpressure como función de primera clase del orquestador.
+loop_role: Orquestador con feedback automático.
+sources:
+- url: https://github.com/ComposioHQ/agent-orchestrator
+  date: '2026-06-26'
+meta:
+  completeness: 0.45
+  confidence: low
+  last_verified: '2026-06-26'
+  first_seen: '2026-06-26'
+  open_questions:
+  - Verificar stars/versión en la fuente primaria (importado de data/frameworks.json).
+  - Definir best_for/not_for y puntuar las 7 dimensiones con evidencia.

@@ -1,0 +1,40 @@
+# bmalph — perfil importado de data/frameworks.json (2026-06-26).
+# Generado por integración del dossier loop-engineering; pendiente de extract-improve.
+id: bmalph
+name: bmalph
+url: https://github.com/LarsCowe/bmalph
+category: loop-engineering
+family: autonomous-loops
+signal_types:
+- new-technique
+one_liner: Une la planificación estructurada de BMAD (fases 1-3) con el bucle autónomo de Ralph (fase
+  4) en un solo comando.
+use_cases:
+- autonomous-long-run
+- context-management
+languages:
+- any
+best_for: null
+not_for: null
+requires: null
+scores: null
+maturity:
+  stars: null
+  last_release: null
+  active: true
+  license: null
+  status: active
+  notes: Soporta Claude Code, Codex CLI, OpenCode, Copilot CLI, Cursor CLI
+steal: 'Planificación con personas + ejecución en bucle: el plan da el oráculo, Ralph itera hasta cumplirlo.'
+loop_role: Planner + runtime combinados.
+sources:
+- url: https://github.com/LarsCowe/bmalph
+  date: '2026-06-26'
+meta:
+  completeness: 0.45
+  confidence: low
+  last_verified: '2026-06-26'
+  first_seen: '2026-06-26'
+  open_questions:
+  - Verificar stars/versión en la fuente primaria (importado de data/frameworks.json).
+  - Definir best_for/not_for y puntuar las 7 dimensiones con evidencia.

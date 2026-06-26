@@ -1,0 +1,40 @@
+# Vibe Kanban — perfil importado de data/frameworks.json (2026-06-26).
+# Generado por integración del dossier loop-engineering; pendiente de extract-improve.
+id: vibe-kanban
+name: Vibe Kanban
+url: https://nimbalyst.com/compare/vibe-kanban/
+category: orchestrator
+family: orchestrators
+signal_types:
+- tool-release
+- deprecation
+one_liner: 'Tablero kanban para orquestar agentes. CERRADO: sin modelo de negocio viable.'
+use_cases:
+- multi-agent-orchestration
+- ci-autofix
+languages:
+- any
+best_for: null
+not_for: null
+requires: null
+scores: null
+maturity:
+  stars: null
+  last_release: null
+  active: false
+  license: null
+  status: deprecated
+  notes: Cierre anunciado 2026-04-10; deprecado feb-2026 → Nimbalyst. Sigue como OSS comunitario.
+steal: null
+loop_role: null
+sources:
+- url: https://nimbalyst.com/compare/vibe-kanban/
+  date: '2026-06-26'
+meta:
+  completeness: 0.45
+  confidence: low
+  last_verified: '2026-06-26'
+  first_seen: '2026-06-26'
+  open_questions:
+  - Verificar stars/versión en la fuente primaria (importado de data/frameworks.json).
+  - Definir best_for/not_for y puntuar las 7 dimensiones con evidencia.

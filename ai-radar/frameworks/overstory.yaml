@@ -1,0 +1,40 @@
+# Overstory — perfil importado de data/frameworks.json (2026-06-26).
+# Generado por integración del dossier loop-engineering; pendiente de extract-improve.
+id: overstory
+name: Overstory
+url: https://github.com/jayminwest/overstory
+category: orchestrator
+family: orchestrators
+signal_types:
+- tool-release
+one_liner: 'Convierte una sesión en un equipo multi-agente: workers en worktrees, buzón SQLite, merge
+  con resolución por niveles.'
+use_cases:
+- multi-agent-orchestration
+- ci-autofix
+languages:
+- any
+best_for: null
+not_for: null
+requires: null
+scores: null
+maturity:
+  stars: null
+  last_release: null
+  active: true
+  license: null
+  status: active
+  notes: 'adapters: Claude Code, Pi…'
+steal: Coordinación por buzón + merge tiered para conflictos.
+loop_role: Orquestador con runtime adaptable.
+sources:
+- url: https://github.com/jayminwest/overstory
+  date: '2026-06-26'
+meta:
+  completeness: 0.45
+  confidence: low
+  last_verified: '2026-06-26'
+  first_seen: '2026-06-26'
+  open_questions:
+  - Verificar stars/versión en la fuente primaria (importado de data/frameworks.json).
+  - Definir best_for/not_for y puntuar las 7 dimensiones con evidencia.

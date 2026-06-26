@@ -1,0 +1,42 @@
+# GSD (Get Stuff Done) — perfil importado de data/frameworks.json (2026-06-26).
+# Generado por integración del dossier loop-engineering; pendiente de extract-improve.
+id: gsd
+name: GSD (Get Stuff Done)
+url: https://github.com/iannuttall/gsd
+category: full-flow
+family: full-flow
+signal_types:
+- new-framework
+one_liner: 'Sistema de meta-prompting + context engineering para Claude Code: Discuss → Plan → Execute
+  → Verify, cada fase en contexto fresco con sub-agentes.'
+use_cases:
+- greenfield
+- spec-authoring
+- refactoring
+languages:
+- any
+best_for: null
+not_for: null
+requires: null
+scores: null
+maturity:
+  stars: null
+  last_release: v1.40 (Minimal Install)
+  active: true
+  license: null
+  status: active
+  notes: recomendado para devs solo / PYMES
+steal: '''Lean Orchestrator'' que usa solo ~15% del presupuesto de contexto; resuelve el context-rot con
+  estado en sistema de ficheros.'
+loop_role: Proceso con sub-agentes frescos por fase.
+sources:
+- url: https://github.com/iannuttall/gsd
+  date: '2026-06-26'
+meta:
+  completeness: 0.45
+  confidence: low
+  last_verified: '2026-06-26'
+  first_seen: '2026-06-26'
+  open_questions:
+  - Verificar stars/versión en la fuente primaria (importado de data/frameworks.json).
+  - Definir best_for/not_for y puntuar las 7 dimensiones con evidencia.

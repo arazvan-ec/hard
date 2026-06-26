@@ -1,0 +1,40 @@
+# Harness de 3 agentes (Anthropic) — perfil importado de data/frameworks.json (2026-06-26).
+# Generado por integración del dossier loop-engineering; pendiente de extract-improve.
+id: anthropic-harness
+name: Harness de 3 agentes (Anthropic)
+url: https://www.anthropic.com/engineering/harness-design-long-running-apps
+category: harness-methodology
+family: harness-engineering
+signal_types:
+- methodology
+one_liner: Harness multi-agente planner / generator / evaluator para apps de larga ejecución; sesiones
+  autónomas de horas.
+use_cases:
+- evaluation
+- context-management
+languages:
+- any
+best_for: null
+not_for: null
+requires: null
+scores: null
+maturity:
+  stars: null
+  last_release: null
+  active: true
+  license: null
+  status: active
+  notes: field report 2026-03-24
+steal: Generator-evaluator estilo GAN con evaluador escéptico; sprint contracts; reset de contexto > compactación.
+loop_role: Arquitectura de referencia de loop multi-agente.
+sources:
+- url: https://www.anthropic.com/engineering/harness-design-long-running-apps
+  date: '2026-06-26'
+meta:
+  completeness: 0.45
+  confidence: low
+  last_verified: '2026-06-26'
+  first_seen: '2026-06-26'
+  open_questions:
+  - Verificar stars/versión en la fuente primaria (importado de data/frameworks.json).
+  - Definir best_for/not_for y puntuar las 7 dimensiones con evidencia.

@@ -1,0 +1,40 @@
+# loop-engineering (toolkit) — perfil importado de data/frameworks.json (2026-06-26).
+# Generado por integración del dossier loop-engineering; pendiente de extract-improve.
+id: loop-engineering-toolkit
+name: loop-engineering (toolkit)
+url: https://github.com/cobusgreyling/loop-engineering
+category: loop-engineering
+family: autonomous-loops
+signal_types:
+- new-technique
+one_liner: Patrones, starters y CLIs para loop engineering (loop-audit, loop-init, loop-cost), inspirado
+  en Addy Osmani y Boris Cherny.
+use_cases:
+- autonomous-long-run
+- context-management
+languages:
+- any
+best_for: null
+not_for: null
+requires: null
+scores: null
+maturity:
+  stars: null
+  last_release: null
+  active: true
+  license: null
+  status: active
+  notes: null
+steal: Herramientas para auditar y arrancar bucles, y medir su coste.
+loop_role: Tooling de soporte al loop engineering.
+sources:
+- url: https://github.com/cobusgreyling/loop-engineering
+  date: '2026-06-26'
+meta:
+  completeness: 0.45
+  confidence: low
+  last_verified: '2026-06-26'
+  first_seen: '2026-06-26'
+  open_questions:
+  - Verificar stars/versión en la fuente primaria (importado de data/frameworks.json).
+  - Definir best_for/not_for y puntuar las 7 dimensiones con evidencia.

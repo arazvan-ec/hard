@@ -1,0 +1,42 @@
+# Tessl — perfil importado de data/frameworks.json (2026-06-26).
+# Generado por integración del dossier loop-engineering; pendiente de extract-improve.
+id: tessl
+name: Tessl
+url: https://tessl.io
+category: spec-as-artifact
+family: spec-as-artifact
+signal_types:
+- new-framework
+- tool-release
+one_liner: 'Único que aspira a spec-as-source: la spec es el artefacto que se mantiene y el código se
+  marca ''// GENERATED FROM SPEC - DO NOT EDIT''.'
+use_cases:
+- spec-authoring
+- greenfield
+languages:
+- any
+best_for: null
+not_for: null
+requires: null
+scores: null
+maturity:
+  stars: null
+  last_release: Framework + Registry públicos
+  active: true
+  license: null
+  status: active
+  notes: null
+steal: Spec Registry — registro abierto de 10.000+ specs de cómo usar librerías open-source ('npm para
+  specs'); ataca las alucinaciones de API.
+loop_role: Spec como única fuente; el código es output regenerable.
+sources:
+- url: https://tessl.io
+  date: '2026-06-26'
+meta:
+  completeness: 0.45
+  confidence: low
+  last_verified: '2026-06-26'
+  first_seen: '2026-06-26'
+  open_questions:
+  - Verificar stars/versión en la fuente primaria (importado de data/frameworks.json).
+  - Definir best_for/not_for y puntuar las 7 dimensiones con evidencia.

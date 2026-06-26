@@ -1,0 +1,41 @@
+# Superpowers — perfil importado de data/frameworks.json (2026-06-26).
+# Generado por integración del dossier loop-engineering; pendiente de extract-improve.
+id: superpowers
+name: Superpowers
+url: https://github.com/obra/superpowers
+category: full-flow
+family: full-flow
+signal_types:
+- new-framework
+one_liner: Flujo de 7 fases (Brainstorm → Spec → Plan → TDD → Subagent Dev → Review → Finalize) con TDD
+  obligatorio y skills componibles.
+use_cases:
+- greenfield
+- spec-authoring
+- refactoring
+languages:
+- any
+best_for: null
+not_for: null
+requires: null
+scores: null
+maturity:
+  stars: 224700
+  last_release: null
+  active: true
+  license: null
+  status: active
+  notes: ~787K instalaciones vía marketplace de Anthropic
+steal: TDD obligatorio + brainstorming socrático + skills componibles como gates de proceso.
+loop_role: Define el proceso completo; el TDD provee el oráculo.
+sources:
+- url: https://github.com/obra/superpowers
+  date: '2026-06-26'
+meta:
+  completeness: 0.45
+  confidence: low
+  last_verified: '2026-06-26'
+  first_seen: '2026-06-26'
+  open_questions:
+  - Verificar stars/versión en la fuente primaria (importado de data/frameworks.json).
+  - Definir best_for/not_for y puntuar las 7 dimensiones con evidencia.
