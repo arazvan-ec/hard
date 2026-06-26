@@ -70,7 +70,16 @@ Cinco son **operativas** (etapas del flujo, R1→R5). Una es **transversal** (RT
 2. **Evolución independiente.** Se mejora una etapa sin tocar las demás.
 3. **Auto-mejora unitaria.** Cada flujo **sabe mejorarse a sí mismo**: su meta-loop (`<etapa>-improve`) observa sus resultados, detecta dónde falló respecto a su propósito y **reescribe su propio método** (su SKILL.md, criterios, queries o esquema), con evidencia del barrido que lo motiva.
 
-**Decisión de modelo:** RT se implementa como **ley transversal, de forma incremental** — un único patrón de auto-mejora reutilizable, instanciado por etapa, empezando por la de más palanca y replicando cuando haya datos. No es una etapa centralizada de reflexión.
+**Regla de decisión fundamental — gobierna a TODO meta-loop y a cualquier recomendación del sistema (incluidas las del agente al usuario):**
+> Toda elección —qué mejorar, qué construir, qué priorizar, qué recomendar— se decide por **lo que es mejor para el propósito del proceso**, nunca por su facilidad, rapidez o coste de implementación.
+>
+> - La facilidad/rapidez solo vale como **desempate** entre opciones igualmente buenas para el propósito; jamás como criterio primario.
+> - Si la mejor opción para el propósito es costosa, **esa se elige** — y, si hace falta, se **fasea** (no se cambia por una peor que es más fácil).
+> - Todo meta-loop debe poder **justificar cada decisión contra esta regla**; si no puede, la decisión está mal tomada.
+
+Esta regla es la primera comprobación de cualquier paso de priorización o recomendación en R1–R5 y en sus `*-improve`.
+
+**Decisión de modelo:** RT se implementa como **ley transversal, de forma incremental** — un único patrón de auto-mejora reutilizable, instanciado por etapa, empezando por la de más palanca y replicando cuando haya datos. No es una etapa centralizada de reflexión. "Empezar por la de más palanca" se interpreta bajo la regla de decisión: más palanca = más valor para el propósito, no menos esfuerzo.
 
 ```
                  ┌─────────────────────────────────────┐
