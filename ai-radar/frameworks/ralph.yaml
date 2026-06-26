@@ -4,9 +4,10 @@ url: https://github.com/snarktank/ralph
 family: autonomous-loops
 signal_types: [new-technique, field-report]
 one_liner: >
-  Patrón de bucle autónomo en el que un agente corre en un loop de shell,
-  releyendo el mismo prompt cada iteración, usando el sistema de ficheros y git
-  como memoria en vez del historial de conversación, con contexto fresco por vuelta.
+  Patrón de bucle autónomo (impl. de Ryan Carson / snarktank sobre la idea de
+  Huntley) en el que un agente —Amp o Claude Code— corre en un loop de shell hasta
+  completar todos los ítems de un PRD, con contexto fresco por vuelta y memoria en
+  git + progress.txt + prd.json en vez del historial de conversación.
 
 use_cases: [porting, autonomous-long-run, greenfield, context-management]
 languages: [any]
@@ -22,7 +23,7 @@ requires: Un agente de codificación + un loop de shell; no es una herramienta i
 scores: { RIG: 2, LIG: 4, CTX: 5, MAD: 3, MA: 3, POR: 5, FIT: 4, sigma: 26 }
 
 maturity:
-  stars: null
+  stars: 16000        # fuentes discrepan (~14–19k a 2026); >12k en sus 2 primeros meses
   last_release: null
   active: true
   license: unknown
@@ -38,11 +39,11 @@ sources:
   - { url: "https://agent-wars.com/news/2026-03-15-ralph-autonomous-subagent-codebase-porting", date: 2026-03-15 }
 
 meta:
-  completeness: 0.6
-  confidence: medium
+  completeness: 0.8
+  confidence: medium        # autoría/uso confirmados; stars con varianza grande entre fuentes
   last_verified: 2026-06-26
   first_seen: 2026-06-26
   open_questions:
-    - "Verificar stars/actividad del repo snarktank/ralph contra la fuente primaria."
+    - "Fijar nº de stars exacto (fuentes dan 14–19k); usar la página primaria del repo."
     - "¿Hay variantes (bmalph) que merezcan perfil propio o son la misma familia?"
     - "Confirmar las dimensiones RIG/MA con un caso de uso documentado, no estimación."

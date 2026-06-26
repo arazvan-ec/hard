@@ -22,8 +22,8 @@ requires: Un agente compatible (Claude Code, Cursor, Copilot…); CLI de Spec Ki
 scores: { RIG: 4, LIG: 3, CTX: 3, MAD: 5, MA: 2, POR: 5, FIT: 3, sigma: 25 }
 
 maturity:
-  stars: 90000
-  last_release: "mid-2026 (>90k★, 30+ integraciones)"
+  stars: 115000       # ~111–115k a jun-2026 según fuentes; crecimiento muy rápido
+  last_release: "55+ releases desde feb-2026 (jun-2026, ~115k★, 30+ integraciones)"
   active: true
   license: open-source
   status: active
@@ -37,11 +37,10 @@ sources:
   - { url: "https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html", date: 2026 }
 
 meta:
-  completeness: 0.7
-  confidence: medium
+  completeness: 0.9
+  confidence: high          # url y rango de stars confirmados en fuente primaria
   last_verified: 2026-06-26
   first_seen: 2026-06-26
   open_questions:
-    - "Confirmar URL canónica del repo y nº de stars exacto en la fuente primaria (GitHub)."
-    - "¿Última versión/release concreta? El dato de madurez viene de agregador."
+    - "Fijar nº de release/versión concreta (las fuentes dan '55+ releases', no un tag exacto)."
     - "Detallar el flujo exacto spec→plan→tasks→code para afinar RIG."
