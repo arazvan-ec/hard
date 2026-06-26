@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DOSSIER // LOOP ENGINEERING — AI Radar</title>
+<meta name="description" content="Dossier de inteligencia: frameworks de desarrollo con IA y la doctrina del loop engineering.">
+<style>
+  :root{
+    --void:#08080a; --panel:#101014; --panel2:#16161c; --line:#26262e;
+    --ash:#cfc9bd; --dim:#76736a; --faint:#4a4842;
+    --hazard:#e8b21f; --danger:#d23b1e; --cyan:#45c0cf; --ok:#8fb04a;
+    --mono:"SF Mono",ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--void);color:var(--ash);font-family:var(--mono);
+    font-size:15px;line-height:1.6;letter-spacing:.01em;overflow-x:hidden}
+  /* scanlines + vignette */
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;
+    background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0,rgba(0,0,0,.16) 1px,transparent 1px,transparent 3px);
+    mix-blend-mode:multiply;animation:flick 6s steps(60) infinite}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:9998;
+    background:radial-gradient(120% 90% at 50% 0%,transparent 55%,rgba(0,0,0,.55) 100%)}
+  @keyframes flick{0%,97%{opacity:1}98%{opacity:.82}99%{opacity:.94}100%{opacity:1}}
+  @media (prefers-reduced-motion:reduce){body::after{animation:none}.glitch::before,.glitch::after{display:none}}
+
+  a{color:var(--cyan);text-decoration:none}
+  a:hover{color:var(--hazard);text-decoration:underline}
+  a:focus-visible{outline:2px solid var(--hazard);outline-offset:2px}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  .hazard-bar{height:14px;background:repeating-linear-gradient(45deg,var(--hazard) 0 16px,#000 16px 32px);opacity:.85}
+
+  /* header */
+  header{border-bottom:1px solid var(--line);background:
+    linear-gradient(180deg,rgba(232,178,31,.05),transparent 70%),var(--void)}
+  .tag-class{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+    font-size:11px;letter-spacing:.22em;color:var(--danger);text-transform:uppercase;
+    padding:14px 0 10px;border-bottom:1px dashed var(--line)}
+  .tag-class .blink{animation:blink 1.4s steps(2) infinite}
+  @keyframes blink{50%{opacity:.25}}
+  h1.glitch{font-size:clamp(40px,11vw,104px);line-height:.92;margin:30px 0 6px;
+    font-weight:800;letter-spacing:-.02em;color:var(--ash);position:relative;
+    text-transform:uppercase}
+  .glitch::before,.glitch::after{content:attr(data-t);position:absolute;left:0;top:0;
+    width:100%;overflow:hidden}
+  .glitch::before{color:var(--danger);transform:translate(-2px,0);clip-path:inset(0 0 62% 0);
+    animation:gl1 3.2s infinite linear alternate}
+  .glitch::after{color:var(--cyan);transform:translate(2px,0);clip-path:inset(58% 0 0 0);
+    animation:gl2 2.7s infinite linear alternate}
+  @keyframes gl1{0%,92%{transform:translate(-2px,0)}93%{transform:translate(-6px,1px)}100%{transform:translate(-2px,0)}}
+  @keyframes gl2{0%,90%{transform:translate(2px,0)}91%{transform:translate(7px,-1px)}100%{transform:translate(2px,0)}}
+  .thesis{font-size:clamp(16px,2.4vw,21px);color:var(--hazard);max-width:60ch;margin:18px 0 6px;
+    border-left:3px solid var(--hazard);padding-left:14px;font-weight:600}
+  .meta-row{display:flex;flex-wrap:wrap;gap:6px 26px;font-size:12px;color:var(--dim);
+    padding:18px 0 26px;letter-spacing:.06em}
+  .meta-row b{color:var(--ash)}
+
+  section{padding:46px 0;border-bottom:1px solid var(--line)}
+  .eyebrow{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--danger);
+    display:flex;align-items:center;gap:12px;margin:0 0 22px}
+  .eyebrow::before{content:"";width:34px;height:2px;background:var(--danger)}
+  h2{font-size:clamp(22px,4vw,34px);margin:0 0 4px;letter-spacing:-.01em;color:var(--ash);
+    text-transform:uppercase}
+  .lede{color:var(--dim);max-width:72ch;margin:0 0 8px}
+
+  /* doctrine */
+  .grid{display:grid;gap:14px}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  .card{background:var(--panel);border:1px solid var(--line);padding:18px 20px;position:relative}
+  .card .n{font-size:11px;color:var(--hazard);letter-spacing:.2em}
+  .card h3{margin:6px 0 8px;font-size:16px;color:var(--ash)}
+  .card p{margin:0;color:var(--dim);font-size:14px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .chip{font-size:12px;border:1px solid var(--line);padding:6px 11px;color:var(--ash);background:var(--panel2)}
+  .chip .k{color:var(--faint);margin-right:7px}
+  .tiers{list-style:none;padding:0;margin:14px 0 0;counter-reset:t}
+  .tiers li{counter-increment:t;padding:12px 0 12px 44px;border-top:1px solid var(--line);position:relative;color:var(--dim)}
+  .tiers li::before{content:"T" counter(t);position:absolute;left:0;top:11px;color:var(--hazard);
+    font-weight:800;border:1px solid var(--hazard);padding:1px 6px;font-size:12px}
+
+  .origin{display:flex;flex-wrap:wrap;gap:10px 28px;font-size:13px;color:var(--dim);margin-top:14px}
+  .origin b{color:var(--cyan)}
+
+  /* registry controls */
+  .controls{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
+  .fbtn{font-family:var(--mono);font-size:12px;letter-spacing:.06em;background:transparent;
+    color:var(--dim);border:1px solid var(--line);padding:8px 13px;cursor:pointer;text-transform:uppercase}
+  .fbtn:hover{color:var(--ash);border-color:var(--dim)}
+  .fbtn[aria-pressed="true"]{background:var(--hazard);color:#000;border-color:var(--hazard);font-weight:700}
+  .count{font-size:12px;color:var(--faint);margin:0 0 16px;letter-spacing:.1em}
+
+  /* subject cards */
+  .subjects{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
+  .subj{background:var(--panel);border:1px solid var(--line);padding:0;position:relative;
+    display:flex;flex-direction:column}
+  .subj .bar{display:flex;justify-content:space-between;align-items:center;gap:8px;
+    padding:11px 15px;border-bottom:1px solid var(--line);background:var(--panel2)}
+  .subj .idx{font-size:11px;color:var(--faint);letter-spacing:.15em}
+  .badge{font-size:10px;letter-spacing:.12em;padding:3px 8px;border:1px solid;text-transform:uppercase;font-weight:700}
+  .badge.active{color:var(--ok);border-color:rgba(143,176,74,.5)}
+  .badge.deprecated{color:var(--danger);border-color:var(--danger)}
+  .subj .body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:9px;flex:1}
+  .subj h4{margin:0;font-size:17px;color:var(--ash);line-height:1.2}
+  .subj .cat{font-size:11px;color:var(--hazard);letter-spacing:.08em;text-transform:uppercase}
+  .subj .by{font-size:12px;color:var(--faint)}
+  .subj .one{font-size:13.5px;color:var(--ash);margin:2px 0}
+  .subj .tech{font-size:13px;color:var(--dim);background:var(--panel2);border-left:2px solid var(--hazard);padding:8px 11px}
+  .subj .tech .k{display:block;color:var(--hazard);font-size:10px;letter-spacing:.14em;margin-bottom:3px}
+  .subj .foot{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11px;color:var(--faint);
+    margin-top:auto;padding-top:8px;border-top:1px solid var(--line)}
+  .subj .foot b{color:var(--cyan)}
+  .subj.dead{opacity:.6}
+  .subj.dead::after{content:"DECOMMISSIONED";position:absolute;top:42%;left:50%;
+    transform:translate(-50%,-50%) rotate(-12deg);color:var(--danger);border:2px solid var(--danger);
+    padding:4px 14px;font-size:15px;font-weight:800;letter-spacing:.15em;opacity:.8;pointer-events:none}
+
+  footer{padding:40px 0 70px}
+  footer .eyebrow{color:var(--dim)}
+  footer .eyebrow::before{background:var(--dim)}
+  .srcs{display:grid;gap:6px;font-size:12px;color:var(--dim)}
+  .stamp{margin-top:26px;font-size:11px;color:var(--faint);letter-spacing:.18em;border-top:1px dashed var(--line);padding-top:16px}
+</style>
+</head>
+<body>
+<div class="hazard-bar"></div>
+<header>
+  <div class="wrap">
+    <div class="tag-class">
+      <span>▮ CLASSIFIED // AI-DEV INTELLIGENCE DOSSIER</span>
+      <span class="blink">● REC · CLEARANCE: OPERATOR</span>
+    </div>
+    <h1 class="glitch" data-t="LOOP ENGINEERING">LOOP ENGINEERING</h1>
+    <p class="thesis" id="thesis"></p>
+    <div class="meta-row" id="meta"></div>
+  </div>
+</header>
+
+<main>
+  <section id="manifesto" class="wrap">
+    <p class="eyebrow">01 — Manifiesto</p>
+    <h2>La disciplina</h2>
+    <p class="lede" id="definition"></p>
+    <div class="origin" id="origin"></div>
+  </section>
+
+  <section id="doctrine" class="wrap">
+    <p class="eyebrow">02 — Doctrina</p>
+    <h2>Principios de operación</h2>
+    <div class="grid g2" id="principles"></div>
+    <h2 style="margin-top:38px">Anatomía del bucle</h2>
+    <p class="lede">Los building blocks que componen un loop, según Osmani.</p>
+    <div class="chips" id="blocks"></div>
+    <h2 style="margin-top:38px">Ruta del operador</h2>
+    <ul class="tiers" id="tiers"></ul>
+  </section>
+
+  <section id="registry" class="wrap">
+    <p class="eyebrow">03 — Registro de sujetos</p>
+    <h2>Frameworks en activo</h2>
+    <p class="lede">Cada sujeto clasificado por función. Estado verificado contra fuente. Los marcados DECOMMISSIONED han sido dados de baja.</p>
+    <div class="controls" id="filters"></div>
+    <p class="count" id="count"></p>
+    <div class="subjects" id="subjects"></div>
+  </section>
+
+  <footer class="wrap">
+    <p class="eyebrow">04 — Manifiesto de fuentes</p>
+    <div class="srcs" id="sources"></div>
+    <p class="stamp" id="stamp"></p>
+  </footer>
+</main>
+
+<script id="le-data" type="application/json">{
+  "title": "Loop Engineering",
+  "tagline": "Deja de promptear tu agente. Diseña el bucle que lo promptea por ti.",
+  "definition": "Disciplina de diseñar el sistema que prompea, alimenta y supervisa a un agente de IA en vez de hacerlo a mano. Defines un objetivo recursivo verificable y el agente itera: inspecciona, cambia, valida, lee el resultado y decide el siguiente paso — solo.",
+  "origin": {
+    "named_by": "Addy Osmani (Google)",
+    "when": "junio 2026, en el ensayo \"Loop Engineering\"",
+    "echoes": "Peter Steinberger (\"deberías estar diseñando bucles que prompean a tus agentes\") y Boris Cherny; raíz técnica en Geoffrey Huntley (Ralph) y los docs de ingeniería de Anthropic",
+    "shift": "prompt engineering → context engineering → harness engineering → loop engineering"
+  },
+  "thesis": "Los mejores agentes de 2026 se construyen como bucles, no como prompts. La habilidad pasa de escribir la frase perfecta a diseñar un ciclo fiable.",
+  "principles": [
+    {
+      "name": "Condición de terminación clara",
+      "desc": "\"Haz que pasen los tests\" es buen objetivo porque el éxito es comprobable; \"mejora el código\" es malo porque el bucle nunca sabe cuándo parar."
+    },
+    {
+      "name": "Feedback real",
+      "desc": "Herramientas que tocan el entorno real: ficheros, terminal, runner de tests, type-checker, git. El feedback solo es tan honesto como las herramientas que lo producen."
+    },
+    {
+      "name": "Gestión de contexto",
+      "desc": "Cada paso alimenta al siguiente; un bucle largo desborda el context window salvo que resuma, pode y descargue estado fuera."
+    },
+    {
+      "name": "Salvaguardas",
+      "desc": "Salidas explícitas de éxito y de fallo, y una vía para escalar a un humano cuando el bucle se atasca, en vez de quemar tokens para siempre."
+    },
+    {
+      "name": "Separar quien escribe de quien verifica",
+      "desc": "El modelo que escribió el código es \"demasiado amable corrigiendo sus propios deberes\". Patrón Evaluator-Optimizer: un agente genera, otro distinto critica contra la spec."
+    }
+  ],
+  "building_blocks": [
+    "Automations (qué dispara el bucle)",
+    "Worktrees (aislamiento por agente)",
+    "Skills (capacidades reutilizables)",
+    "Connectors (acceso al entorno)",
+    "Sub-agents (contextos frescos, verificación independiente)",
+    "External state (git, ficheros, issue-tracker como memoria)"
+  ],
+  "three_tier_model": [
+    "Tier 1 — Decidir si de verdad necesitas un bucle (no todo lo es).",
+    "Tier 2 — Dominar los building blocks esenciales.",
+    "Tier 3 — Construir el bucle viable más pequeño que funcione sin arruinarte en tokens."
+  ],
+  "exemplars": ["ralph", "bmalph", "antfarm", "loop-engineering-toolkit"],
+  "sources": [
+    {"title": "Loop Engineering — Addy Osmani", "url": "https://addyo.substack.com/p/loop-engineering"},
+    {"title": "What Is Loop Engineering? (Tosea.ai)", "url": "https://tosea.ai/blog/loop-engineering-ai-agents-complete-guide-2026"},
+    {"title": "Loop Engineering — O'Reilly Radar", "url": "https://www.oreilly.com/radar/loop-engineering/"},
+    {"title": "everything is a ralph loop — ghuntley", "url": "https://ghuntley.com/loop/"}
+  ]
+}</script>
+<script id="fw-data" type="application/json">{
+  "generated": "2026-06-26",
+  "scope": "Frameworks, herramientas y patrones actuales de desarrollo con IA, con foco en loop engineering.",
+  "categories": {
+    "loop-engineering": "Bucles autónomos / diseño de loops",
+    "full-flow": "Flujo completo (proceso sobre el agente)",
+    "spec-as-artifact": "La especificación como artefacto (SDD)",
+    "orchestrator": "Orquestadores / harness multi-agente",
+    "memory-context": "Memoria y context engineering",
+    "coding-agent": "Agentes de codificación (el sustrato)",
+    "harness-methodology": "Harness engineering y metodología",
+    "platform": "Plataformas de coordinación"
+  },
+  "frameworks": [
+    {
+      "id": "ralph",
+      "name": "Ralph (Wiggum loop)",
+      "category": "loop-engineering",
+      "creator": "Geoffrey Huntley (idea) · Ryan Carson / snarktank (impl)",
+      "one_liner": "Bucle de shell que reejecuta el mismo prompt hasta completar un PRD; git + progress.txt + prd.json como memoria, contexto fresco por vuelta.",
+      "key_technique": "Contexto fresco cada iteración + estado externo en git. Modos: human-in-the-loop y 'AFK Ralph' (autonomía total).",
+      "loop_role": "El bucle canónico. Runtime de loop engineering.",
+      "maturity": {"stars": 16000, "version": null, "status": "active", "notes": "~14–19k según fuente"},
+      "url": "https://github.com/snarktank/ralph"
+    },
+    {
+      "id": "bmalph",
+      "name": "bmalph",
+      "category": "loop-engineering",
+      "creator": "LarsCowe",
+      "one_liner": "Une la planificación estructurada de BMAD (fases 1-3) con el bucle autónomo de Ralph (fase 4) en un solo comando.",
+      "key_technique": "Planificación con personas + ejecución en bucle: el plan da el oráculo, Ralph itera hasta cumplirlo.",
+      "loop_role": "Planner + runtime combinados.",
+      "maturity": {"stars": null, "version": null, "status": "active", "notes": "Soporta Claude Code, Codex CLI, OpenCode, Copilot CLI, Cursor CLI"},
+      "url": "https://github.com/LarsCowe/bmalph"
+    },
+    {
+      "id": "antfarm",
+      "name": "Antfarm",
+      "category": "loop-engineering",
+      "creator": "comunidad (sobre OpenClaw)",
+      "one_liner": "Corre bucles Ralph sobre OpenClaw con roles (planner, dev, verifier, tester, reviewer); cada historia atómica en su worktree, coordinado por YAML + cron + SQLite.",
+      "key_technique": "Bucles Ralph multi-rol con verificación separada y aislamiento por worktree.",
+      "loop_role": "Orquestación de múltiples bucles.",
+      "maturity": {"stars": null, "version": null, "status": "active", "notes": null},
+      "url": "https://github.com/andyrewlee/awesome-agent-orchestrators"
+    },
+    {
+      "id": "loop-engineering-toolkit",
+      "name": "loop-engineering (toolkit)",
+      "category": "loop-engineering",
+      "creator": "Cobus Greyling",
+      "one_liner": "Patrones, starters y CLIs para loop engineering (loop-audit, loop-init, loop-cost), inspirado en Addy Osmani y Boris Cherny.",
+      "key_technique": "Herramientas para auditar y arrancar bucles, y medir su coste.",
+      "loop_role": "Tooling de soporte al loop engineering.",
+      "maturity": {"stars": null, "version": null, "status": "active", "notes": null},
+      "url": "https://github.com/cobusgreyling/loop-engineering"
+    },
+    {
+      "id": "superpowers",
+      "name": "Superpowers",
+      "category": "full-flow",
+      "creator": "comunidad (plugin marketplace de Anthropic)",
+      "one_liner": "Flujo de 7 fases (Brainstorm → Spec → Plan → TDD → Subagent Dev → Review → Finalize) con TDD obligatorio y skills componibles.",
+      "key_technique": "TDD obligatorio + brainstorming socrático + skills componibles como gates de proceso.",
+      "loop_role": "Define el proceso completo; el TDD provee el oráculo.",
+      "maturity": {"stars": 224700, "version": null, "status": "active", "notes": "~787K instalaciones vía marketplace de Anthropic"},
+      "url": "https://github.com/obra/superpowers"
+    },
+    {
+      "id": "bmad",
+      "name": "BMAD-METHOD",
+      "category": "full-flow",
+      "creator": "comunidad BMAD",
+      "one_liner": "Personas de IA especializadas (Analista, PM, Arquitecto, Dev, QA), cada una con su prompt; el proyecto avanza secuencialmente produciendo artefactos.",
+      "key_technique": "Roles ágiles como agentes especializados; artefactos estructurados entre fases.",
+      "loop_role": "Planner multi-rol; combinable con Ralph (ver bmalph).",
+      "maturity": {"stars": null, "version": "v6.6 (módulo Test Architect)", "status": "active", "notes": "recomendado para nuevos proyectos enterprise"},
+      "url": "https://github.com/bmad-code-org/BMAD-METHOD"
+    },
+    {
+      "id": "gsd",
+      "name": "GSD (Get Stuff Done)",
+      "category": "full-flow",
+      "creator": "comunidad",
+      "one_liner": "Sistema de meta-prompting + context engineering para Claude Code: Discuss → Plan → Execute → Verify, cada fase en contexto fresco con sub-agentes.",
+      "key_technique": "'Lean Orchestrator' que usa solo ~15% del presupuesto de contexto; resuelve el context-rot con estado en sistema de ficheros.",
+      "loop_role": "Proceso con sub-agentes frescos por fase.",
+      "maturity": {"stars": null, "version": "v1.40 (Minimal Install)", "status": "active", "notes": "recomendado para devs solo / PYMES"},
+      "url": "https://github.com/iannuttall/gsd"
+    },
+    {
+      "id": "spec-kit",
+      "name": "GitHub Spec Kit",
+      "category": "spec-as-artifact",
+      "creator": "GitHub",
+      "one_liner": "Toolkit open-source de SDD: la spec versionada y ejecutable es la fuente de verdad; de ahí se derivan plan, tareas y código.",
+      "key_technique": "Spec portable y model-agnóstica; ~1 orden de magnitud menos ciclos de regeneración que el prompting ad-hoc.",
+      "loop_role": "Genera el oráculo de corrección (la spec).",
+      "maturity": {"stars": 115000, "version": "55+ releases desde feb-2026", "status": "active", "notes": "la opción más portable, 30+ integraciones"},
+      "url": "https://github.com/github/spec-kit"
+    },
+    {
+      "id": "openspec",
+      "name": "OpenSpec",
+      "category": "spec-as-artifact",
+      "creator": "comunidad",
+      "one_liner": "SDD con máquina de estados estricta proposal → apply → archive; marcadores delta (ADDED/MODIFIED/REMOVED) para iteración brownfield auditable.",
+      "key_technique": "Gate de estado explícito + cambios auditables antes de tocar código. Puntuó más alto en una evaluación independiente de feb-2026 (13 categorías).",
+      "loop_role": "Oráculo con gobernanza de cambios.",
+      "maturity": {"stars": 52100, "version": null, "status": "active", "notes": "el SDD open-source más activo"},
+      "url": "https://github.com/Fission-AI/OpenSpec"
+    },
+    {
+      "id": "kiro",
+      "name": "AWS Kiro",
+      "category": "spec-as-artifact",
+      "creator": "Amazon",
+      "one_liner": "IDE agéntico construido alrededor de SDD: obliga a formalizar la intención antes de generar código.",
+      "key_technique": "El más ligero (3 ficheros markdown), basado en VS Code; rigor estructurado en vez de prompting iterativo.",
+      "loop_role": "IDE-nativo que ancla en spec.",
+      "maturity": {"stars": null, "version": "GA (free + paid)", "status": "active", "notes": "el IDE agéntico más integrado"},
+      "url": "https://kiro.dev"
+    },
+    {
+      "id": "tessl",
+      "name": "Tessl",
+      "category": "spec-as-artifact",
+      "creator": "Tessl",
+      "one_liner": "Único que aspira a spec-as-source: la spec es el artefacto que se mantiene y el código se marca '// GENERATED FROM SPEC - DO NOT EDIT'.",
+      "key_technique": "Spec Registry — registro abierto de 10.000+ specs de cómo usar librerías open-source ('npm para specs'); ataca las alucinaciones de API.",
+      "loop_role": "Spec como única fuente; el código es output regenerable.",
+      "maturity": {"stars": null, "version": "Framework + Registry públicos", "status": "active", "notes": null},
+      "url": "https://tessl.io"
+    },
+    {
+      "id": "gastown",
+      "name": "Gastown",
+      "category": "orchestrator",
+      "creator": "Steve Yegge",
+      "one_liner": "Sistema en Go para coordinar 20-30+ agentes concurrentes con siete roles (Mayor, Crew, Refinery, Witness, Polecats, Deacon, Dogs) y su propio tracker (Beads).",
+      "key_technique": "Orquestación a escala con roles especializados y memoria institucional (Beads).",
+      "loop_role": "Orquestador de flota.",
+      "maturity": {"stars": null, "version": null, "status": "active", "notes": "el intento más ambicioso de Yegge"},
+      "url": "https://github.com/gastownhall"
+    },
+    {
+      "id": "conductor",
+      "name": "Conductor",
+      "category": "orchestrator",
+      "creator": "comunidad",
+      "one_liner": "Da a cada agente su propio worktree git aislado; orquestación junto al editor (VS Code/JetBrains) en macOS.",
+      "key_technique": "Aislamiento por worktree para devs solo sin salir del IDE.",
+      "loop_role": "Orquestador ligero local.",
+      "maturity": {"stars": null, "version": null, "status": "active", "notes": null},
+      "url": "https://conductor.build"
+    },
+    {
+      "id": "claude-squad",
+      "name": "Claude Squad",
+      "category": "orchestrator",
+      "creator": "comunidad",
+      "one_liner": "Paralelismo de terminal sin setup: múltiples instancias de Claude Code en paneles tmux.",
+      "key_technique": "Multi-agente de coste cero de configuración vía tmux.",
+      "loop_role": "Paralelismo simple.",
+      "maturity": {"stars": null, "version": null, "status": "active", "notes": null},
+      "url": "https://github.com/smtg-ai/claude-squad"
+    },
+    {
+      "id": "reverbcode",
+      "name": "ReverbCode (Composio)",
+      "category": "orchestrator",
+      "creator": "Composio",
+      "one_liner": "Daemon en Go que supervisa muchas sesiones de agente, cada una en su worktree, y enruta CI/review/conflictos al agente correcto. 23 adaptadores.",
+      "key_technique": "Enrutado de backpressure como función de primera clase del orquestador.",
+      "loop_role": "Orquestador con feedback automático.",
+      "maturity": {"stars": null, "version": null, "status": "active", "notes": "claude-code, codex, cursor, aider, amp…"},
+      "url": "https://github.com/ComposioHQ/agent-orchestrator"
+    },
+    {
+      "id": "overstory",
+      "name": "Overstory",
+      "category": "orchestrator",
+      "creator": "Jaymin West",
+      "one_liner": "Convierte una sesión en un equipo multi-agente: workers en worktrees, buzón SQLite, merge con resolución por niveles.",
+      "key_technique": "Coordinación por buzón + merge tiered para conflictos.",
+      "loop_role": "Orquestador con runtime adaptable.",
+      "maturity": {"stars": null, "version": null, "status": "active", "notes": "adapters: Claude Code, Pi…"},
+      "url": "https://github.com/jayminwest/overstory"
+    },
+    {
+      "id": "vibe-kanban",
+      "name": "Vibe Kanban",
+      "category": "orchestrator",
+      "creator": "Bloop",
+      "one_liner": "Tablero kanban para orquestar agentes. CERRADO: sin modelo de negocio viable.",
+      "key_technique": "—",
+      "loop_role": "—",
+      "maturity": {"stars": null, "version": null, "status": "deprecated", "notes": "Cierre anunciado 2026-04-10; deprecado feb-2026 → Nimbalyst. Sigue como OSS comunitario."},
+      "url": "https://nimbalyst.com/compare/vibe-kanban/"
+    },
+    {
+      "id": "beads",
+      "name": "Beads (bd)",
+      "category": "memory-context",
+      "creator": "Steve Yegge",
+      "one_liner": "Issue-tracker en grafo de dependencias para agentes; memoria estructurada persistida en git. Resuelve el problema de las '50 First Dates'.",
+      "key_technique": "Desde v1.0, backend BD SQL versionada (Dolt) con merge a nivel de celda; JSONL como export. Memoria que viaja con el código.",
+      "loop_role": "Estado externo / memoria del bucle.",
+      "maturity": {"stars": 17100, "version": "v1.0.2 (28-may-2026)", "status": "active", "notes": "integración con Claude Code, Amp"},
+      "url": "https://github.com/steveyegge/beads"
+    },
+    {
+      "id": "mem0",
+      "name": "mem0",
+      "category": "memory-context",
+      "creator": "mem0.ai",
+      "one_liner": "Capa de memoria para agentes que mueve información fuera del contexto y la recupera bajo demanda.",
+      "key_technique": "Memoria agéntica con recuperación on-demand; benchmarks de memoria 2026.",
+      "loop_role": "Memoria externa recuperable.",
+      "maturity": {"stars": null, "version": null, "status": "active", "notes": null},
+      "url": "https://mem0.ai"
+    },
+    {
+      "id": "claude-code",
+      "name": "Claude Code",
+      "category": "coding-agent",
+      "creator": "Anthropic",
+      "one_liner": "Agente CLI con 1M de contexto, sistema de hooks y bucle de planificación a nivel de proyecto; mejor SWE-bench.",
+      "key_technique": "Hooks (gates deterministas) + bucle de planning; sustrato preferido de muchos frameworks.",
+      "loop_role": "Sustrato sobre el que corren los bucles.",
+      "maturity": {"stars": null, "version": null, "status": "active", "notes": "sin BYOM (modelos de Anthropic)"},
+      "url": "https://www.anthropic.com/claude-code"
+    },
+    {
+      "id": "codex",
+      "name": "OpenAI Codex",
+      "category": "coding-agent",
+      "creator": "OpenAI",
+      "one_liner": "Agente que lee ficheros, ejecuta comandos, edita código e itera, sobre modelos GPT-5.x.",
+      "key_technique": "Workflow agéntico de codificación; informe de campo de harness engineering.",
+      "loop_role": "Sustrato de bucle (CLI).",
+      "maturity": {"stars": null, "version": null, "status": "active", "notes": "sin BYOM"},
+      "url": "https://openai.com/index/"
+    },
+    {
+      "id": "cursor",
+      "name": "Cursor",
+      "category": "coding-agent",
+      "creator": "Anysphere",
+      "one_liner": "IDE construido alrededor de la IA (fork de VS Code) con Plan Mode y AGENTS.md; agent mode de un botón.",
+      "key_technique": "El mejor para equipos IDE-first; Plan Mode para anclar.",
+      "loop_role": "Sustrato IDE-nativo.",
+      "maturity": {"stars": null, "version": null, "status": "active", "notes": "pricing por créditos (quejas de overage)"},
+      "url": "https://cursor.com"
+    },
+    {
+      "id": "cline",
+      "name": "Cline",
+      "category": "coding-agent",
+      "creator": "Cline",
+      "one_liner": "Agente Apache-2.0 como sidebar de VS Code (y JetBrains, Cursor, Zed, Neovim) con BYOK total.",
+      "key_technique": "Independencia de vendor: Anthropic, OpenAI, Gemini, Bedrock, Groq, OpenRouter…",
+      "loop_role": "Sustrato open, multi-modelo.",
+      "maturity": {"stars": null, "version": null, "status": "active", "notes": "BYOK completo"},
+      "url": "https://github.com/cline/cline"
+    },
+    {
+      "id": "aider",
+      "name": "Aider",
+      "category": "coding-agent",
+      "creator": "Paul Gauthier",
+      "one_liner": "Agente CLI git-native: cada edición es un commit, cada turno un diff. Anterior a esta ola.",
+      "key_technique": "Todo vive en git; encaja en hábitos existentes (diffs, commits, ramas). Fiable para refactors estructurados.",
+      "loop_role": "Sustrato git-native.",
+      "maturity": {"stars": null, "version": null, "status": "active", "notes": "multi-modelo"},
+      "url": "https://github.com/Aider-AI/aider"
+    },
+    {
+      "id": "openhands",
+      "name": "OpenHands",
+      "category": "coding-agent",
+      "creator": "All Hands AI",
+      "one_liner": "Plataforma cloud de agentes; investigación en condensación de contexto y evals de skills con baseline sin-skill.",
+      "key_technique": "Condensación de contexto; metodología de eval con baseline.",
+      "loop_role": "Sustrato cloud + I+D de context-eng.",
+      "maturity": {"stars": null, "version": null, "status": "active", "notes": null},
+      "url": "https://openhands.dev"
+    },
+    {
+      "id": "anthropic-harness",
+      "name": "Harness de 3 agentes (Anthropic)",
+      "category": "harness-methodology",
+      "creator": "Anthropic",
+      "one_liner": "Harness multi-agente planner / generator / evaluator para apps de larga ejecución; sesiones autónomas de horas.",
+      "key_technique": "Generator-evaluator estilo GAN con evaluador escéptico; sprint contracts; reset de contexto > compactación.",
+      "loop_role": "Arquitectura de referencia de loop multi-agente.",
+      "maturity": {"stars": null, "version": null, "status": "active", "notes": "field report 2026-03-24"},
+      "url": "https://www.anthropic.com/engineering/harness-design-long-running-apps"
+    },
+    {
+      "id": "12-factor-agents",
+      "name": "12-Factor Agents",
+      "category": "harness-methodology",
+      "creator": "HumanLayer / Dexter Horthy",
+      "one_liner": "Principios para LLM-software fiable en producción: dueño de tu context window, tools como output estructurado, agentes pequeños y enfocados…",
+      "key_technique": "Backpressure (tests/types/linters comprimidos) + control de flujo propio + contactar humanos como tool-call.",
+      "loop_role": "Principios que rigen el diseño del bucle.",
+      "maturity": {"stars": null, "version": null, "status": "active", "notes": null},
+      "url": "https://github.com/humanlayer/12-factor-agents"
+    },
+    {
+      "id": "cosmos",
+      "name": "Augment Cosmos",
+      "category": "platform",
+      "creator": "Augment Code",
+      "one_liner": "Plataforma que coloca la coordinación en el runtime: agentes que corren en tu entorno o su cloud, con memoria y contexto compartidos.",
+      "key_technique": "Coordinación en la plataforma + bucles de agente auto-mejorables, multi-modelo.",
+      "loop_role": "Plataforma de orquestación gestionada.",
+      "maturity": {"stars": null, "version": "preview público", "status": "active", "notes": "lanzado 2026-05-03; comercial"},
+      "url": "https://www.augmentcode.com/blog/cosmos-now-in-public-preview"
+    }
+  ]
+}</script>
+<script>
+(function(){
+  var LE=JSON.parse(document.getElementById('le-data').textContent);
+  var FW=JSON.parse(document.getElementById('fw-data').textContent);
+  var $=function(id){return document.getElementById(id)};
+  var esc=function(s){return String(s==null?'':s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})};
+
+  $('thesis').textContent=LE.thesis;
+  $('definition').textContent=LE.definition;
+  var o=LE.origin;
+  $('origin').innerHTML=
+    '<span><b>NOMBRADO POR:</b> '+esc(o.named_by)+'</span>'+
+    '<span><b>CUÁNDO:</b> '+esc(o.when)+'</span>'+
+    '<span><b>LINAJE:</b> '+esc(o.shift)+'</span>';
+
+  $('principles').innerHTML=LE.principles.map(function(p,i){
+    return '<div class="card"><div class="n">PRINCIPIO 0'+(i+1)+'</div><h3>'+esc(p.name)+'</h3><p>'+esc(p.desc)+'</p></div>';
+  }).join('');
+  $('blocks').innerHTML=LE.building_blocks.map(function(b){return '<span class="chip">'+esc(b)+'</span>'}).join('');
+  $('tiers').innerHTML=LE.three_tier_model.map(function(t){return '<li>'+esc(t.replace(/^Tier \d+ — /,''))+'</li>'}).join('');
+
+  var cats=FW.categories;
+  var subjects=FW.frameworks;
+  $('meta').innerHTML=
+    '<span><b>'+subjects.length+'</b> SUJETOS</span>'+
+    '<span><b>'+Object.keys(cats).length+'</b> CATEGORÍAS</span>'+
+    '<span>BARRIDO: <b>'+esc(FW.generated)+'</b></span>'+
+    '<span>EJE: <b>LOOP ENGINEERING</b></span>';
+
+  function render(filter){
+    var list=subjects.filter(function(s){return filter==='ALL'||s.category===filter});
+    $('count').textContent='// MOSTRANDO '+list.length+' / '+subjects.length+' SUJETOS';
+    $('subjects').innerHTML=list.map(function(s,i){
+      var m=s.maturity||{};
+      var dead=m.status==='deprecated';
+      var foot=[];
+      if(m.stars) foot.push('★ <b>'+m.stars.toLocaleString()+'</b>');
+      if(m.version) foot.push('v: <b>'+esc(m.version)+'</b>');
+      if(m.notes) foot.push(esc(m.notes));
+      return '<article class="subj'+(dead?' dead':'')+'">'+
+        '<div class="bar"><span class="idx">SUJETO #'+String(i+1).padStart(2,'0')+'</span>'+
+          '<span class="badge '+(dead?'deprecated':'active')+'">'+(dead?'DECOMMISSIONED':'ACTIVE')+'</span></div>'+
+        '<div class="body">'+
+          '<span class="cat">'+esc(cats[s.category]||s.category)+'</span>'+
+          '<h4>'+esc(s.name)+'</h4>'+
+          '<span class="by">'+esc(s.creator)+'</span>'+
+          '<p class="one">'+esc(s.one_liner)+'</p>'+
+          (s.key_technique&&s.key_technique!=='—'?'<div class="tech"><span class="k">▸ TÉCNICA A ROBAR</span>'+esc(s.key_technique)+'</div>':'')+
+          (s.loop_role&&s.loop_role!=='—'?'<div style="font-size:12px;color:var(--cyan)">↻ '+esc(s.loop_role)+'</div>':'')+
+          '<div class="foot">'+(foot.length?foot.join('<span style="color:var(--line)">·</span>'):'<span>sin datos de madurez verificados</span>')+
+            (s.url?' · <a href="'+esc(s.url)+'" target="_blank" rel="noopener">FUENTE ↗</a>':'')+'</div>'+
+        '</div></article>';
+    }).join('');
+  }
+
+  var order=['ALL'].concat(Object.keys(cats));
+  $('filters').innerHTML=order.map(function(k){
+    var label=k==='ALL'?'TODOS':cats[k];
+    return '<button class="fbtn" data-f="'+esc(k)+'" aria-pressed="'+(k==='ALL')+'">'+esc(label)+'</button>';
+  }).join('');
+  $('filters').addEventListener('click',function(e){
+    var b=e.target.closest('.fbtn'); if(!b) return;
+    Array.prototype.forEach.call(this.querySelectorAll('.fbtn'),function(x){x.setAttribute('aria-pressed', x===b)});
+    render(b.getAttribute('data-f'));
+  });
+  render('ALL');
+
+  $('sources').innerHTML=(LE.sources||[]).map(function(s){
+    return '<div>▸ <a href="'+esc(s.url)+'" target="_blank" rel="noopener">'+esc(s.title)+'</a></div>';
+  }).join('');
+  $('stamp').textContent='// GENERADO POR AI RADAR · radar-scan + frameworks/*.json · '+FW.generated+' · FIN DEL DOSSIER';
+})();
+</script>
+</body>
+</html>

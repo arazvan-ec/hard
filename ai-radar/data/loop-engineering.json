@@ -1,0 +1,54 @@
+{
+  "title": "Loop Engineering",
+  "tagline": "Deja de promptear tu agente. Diseña el bucle que lo promptea por ti.",
+  "definition": "Disciplina de diseñar el sistema que prompea, alimenta y supervisa a un agente de IA en vez de hacerlo a mano. Defines un objetivo recursivo verificable y el agente itera: inspecciona, cambia, valida, lee el resultado y decide el siguiente paso — solo.",
+  "origin": {
+    "named_by": "Addy Osmani (Google)",
+    "when": "junio 2026, en el ensayo \"Loop Engineering\"",
+    "echoes": "Peter Steinberger (\"deberías estar diseñando bucles que prompean a tus agentes\") y Boris Cherny; raíz técnica en Geoffrey Huntley (Ralph) y los docs de ingeniería de Anthropic",
+    "shift": "prompt engineering → context engineering → harness engineering → loop engineering"
+  },
+  "thesis": "Los mejores agentes de 2026 se construyen como bucles, no como prompts. La habilidad pasa de escribir la frase perfecta a diseñar un ciclo fiable.",
+  "principles": [
+    {
+      "name": "Condición de terminación clara",
+      "desc": "\"Haz que pasen los tests\" es buen objetivo porque el éxito es comprobable; \"mejora el código\" es malo porque el bucle nunca sabe cuándo parar."
+    },
+    {
+      "name": "Feedback real",
+      "desc": "Herramientas que tocan el entorno real: ficheros, terminal, runner de tests, type-checker, git. El feedback solo es tan honesto como las herramientas que lo producen."
+    },
+    {
+      "name": "Gestión de contexto",
+      "desc": "Cada paso alimenta al siguiente; un bucle largo desborda el context window salvo que resuma, pode y descargue estado fuera."
+    },
+    {
+      "name": "Salvaguardas",
+      "desc": "Salidas explícitas de éxito y de fallo, y una vía para escalar a un humano cuando el bucle se atasca, en vez de quemar tokens para siempre."
+    },
+    {
+      "name": "Separar quien escribe de quien verifica",
+      "desc": "El modelo que escribió el código es \"demasiado amable corrigiendo sus propios deberes\". Patrón Evaluator-Optimizer: un agente genera, otro distinto critica contra la spec."
+    }
+  ],
+  "building_blocks": [
+    "Automations (qué dispara el bucle)",
+    "Worktrees (aislamiento por agente)",
+    "Skills (capacidades reutilizables)",
+    "Connectors (acceso al entorno)",
+    "Sub-agents (contextos frescos, verificación independiente)",
+    "External state (git, ficheros, issue-tracker como memoria)"
+  ],
+  "three_tier_model": [
+    "Tier 1 — Decidir si de verdad necesitas un bucle (no todo lo es).",
+    "Tier 2 — Dominar los building blocks esenciales.",
+    "Tier 3 — Construir el bucle viable más pequeño que funcione sin arruinarte en tokens."
+  ],
+  "exemplars": ["ralph", "bmalph", "antfarm", "loop-engineering-toolkit"],
+  "sources": [
+    {"title": "Loop Engineering — Addy Osmani", "url": "https://addyo.substack.com/p/loop-engineering"},
+    {"title": "What Is Loop Engineering? (Tosea.ai)", "url": "https://tosea.ai/blog/loop-engineering-ai-agents-complete-guide-2026"},
+    {"title": "Loop Engineering — O'Reilly Radar", "url": "https://www.oreilly.com/radar/loop-engineering/"},
+    {"title": "everything is a ralph loop — ghuntley", "url": "https://ghuntley.com/loop/"}
+  ]
+}
