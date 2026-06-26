@@ -15,6 +15,9 @@
 #   cadence     con qué frecuencia conviene revisar
 #   last_checked  YYYY-MM-DD (lo actualiza radar-scan)
 #   notes       qué la hace valiosa
+#   yield       opcional — nº de hallazgos accionables que esta fuente ha producido
+#               (lo incrementa radar-scan; lo usa source-curation-improve para
+#               retiers/poda por evidencia, no por prestigio). Añadido 2026-06-26.
 
 version: 0
 seeded: 2026-06-24

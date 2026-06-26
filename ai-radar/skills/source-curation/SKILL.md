@@ -39,6 +39,8 @@ Asigna `tier`: 1 = originador/primario, 2 = metodología/síntesis de calidad, 3
 ### 4. Añade al registro
 Por cada fuente aceptada, añade una entrada bajo `sources:` con TODOS los campos (`id, name, type, url, topics, tier, lang, cadence, last_checked, notes`). El `id` es un slug único. `notes` debe decir **por qué** vale (qué técnica/cobertura aporta) — eso es lo que el yo-futuro necesita.
 
+> Señal de rendimiento (`yield`, añadida por source-curation-improve 2026-06-26): el tier debe poder revisarse por **evidencia**, no por prestigio. `radar-scan` incrementa el `yield` de una fuente cuando produce un hallazgo accionable; `source-curation-improve` lo usa para retiers/poda. Si una tier-1 nunca produce, baja; si una tier-3 entrega, sube.
+
 Actualiza la sección `gaps`: quita lo que acabas de cubrir, añade huecos nuevos que hayas detectado.
 
 ### 5. Cierra

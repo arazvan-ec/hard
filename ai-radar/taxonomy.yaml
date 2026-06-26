@@ -53,27 +53,44 @@ signal_types:
 
 # ───────────────────────── Dimensiones de puntuación ─────────────────────────
 # Solo para hallazgos tipo framework/herramienta. Escala 1–5.
+# Anclas 1/3/5 completas (añadidas por ranking-improve 2026-06-26): definir solo el "5"
+# hacía que cada puntuación fuera a ojo e inconsistente entre barridos. Puntúa al ancla
+# más cercana; interpola 2/4.
 dimensions:
   - id: RIG
     name: Rigor / gates
+    one: Sin gates; todo manual, nada bloquea
+    three: Convenciones / checklist, pero sin bloqueo real
     five: Bloqueo real (hooks / state machine)
   - id: LIG
     name: Ligereza
+    one: Setup pesado, días hasta ser productivo
+    three: Algo de config; productivo en una tarde
     five: Cero overhead, productivo en 1h
   - id: CTX
     name: Context-eng
+    one: Todo en un contexto, sin gestión
+    three: Compactación / resumen básico
     five: Sub-agentes frescos, git como memoria
   - id: MAD
     name: Madurez / comunidad
+    one: Experimento o abandonado
+    three: Miles de stars, mantenimiento irregular
     five: Decenas de miles de stars + activo
   - id: MA
     name: Multi-agente
+    one: Un solo agente
+    three: 2–3 agentes coordinados
     five: Enjambre de roles especializados
   - id: POR
     name: Portabilidad
+    one: Atado a un único harness / vendor (lock-in)
+    three: Varios harnesses, pero con fricción
     five: 10+ harnesses, sin lock-in
   - id: FIT
     name: Encaje agent-toolkit
+    one: Choca con el diseño del toolkit
+    three: Encaja parcialmente
     five: Skills + agentmemory + gates; casi tu diseño
 
 # ───────────────────────── Umbral de novedad ─────────────────────────
