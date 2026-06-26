@@ -20,8 +20,13 @@ Encontrar **qué proceso de desarrollo con IA produce el mejor resultado** para 
 | **Calidad / mantenibilidad** | legibilidad, estructura, robustez del resultado | **alto** | rúbrica (1–5) revisada |
 | **Iteraciones al done** | nº de vueltas hasta cumplir | medio | conteo |
 | **Intervención humana** | cuánta ayuda hizo falta | medio | conteo/clasificación |
+| **Dependencia de oráculo** | ¿el proceso genera sus criterios de corrección o necesita que se los den? | alto | análisis del proceso |
 | **Coste (tokens)** | gasto | informativo | telemetría |
 | **Tiempo** | duración | informativo | reloj |
+
+> La métrica "dependencia de oráculo" se añadió en el benchmark `2026-06-26-parse-duration`:
+> sin ella, dos procesos con 100% de corrección empatan y se oculta cuál es realmente el mejor
+> proceso (el que produce el oráculo vs el que lo consume).
 
 > Coste y tiempo **no deciden por sí solos**: son desempate o input para fasear. Un proceso que da mejor desarrollo pero es más caro **gana** y se fasea su adopción.
 
@@ -33,8 +38,10 @@ Un fichero `benchmarks/YYYY-MM-DD-<slug>.md` (ver `_TEMPLATE.md`) + realimentaci
 
 ## Estado de fases
 - **F1 protocolo** — ✅ este documento (v0).
-- **F2 benchmark manual** — ⬜ pendiente (primer caso real).
-- **F3 automatizado/repetible** — ⬜ destino.
+- **F2 benchmark manual** — ✅ primer caso: `2026-06-26-parse-duration` (process patterns).
+- **F3 automatizado/repetible** — ⬜ destino (agentes/herramientas reales, casos ocultos, multi-agente).
 
 ## Mejoras del protocolo (las registra `eval-improve`)
-- _(vacío — se llena cuando una métrica no prediga calidad real y haya que corregir el método)_
+- **2026-06-26** — añadida la métrica **"dependencia de oráculo"** (un empate en corrección pura
+  ocultaba la diferencia que decide el mejor proceso). Registrada limitación de los benchmarks
+  de un solo agente con casos conocidos → saldar en F3.
