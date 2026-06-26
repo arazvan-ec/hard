@@ -1,5 +1,4 @@
-# Aider — perfil importado de data/frameworks.json (2026-06-26).
-# Generado por integración del dossier loop-engineering; pendiente de extract-improve.
+# Aider — perfil importado y verificado por extract-improve (vuelta 2, 2026-06-26).
 id: aider
 name: Aider
 url: https://github.com/Aider-AI/aider
@@ -18,22 +17,21 @@ not_for: null
 requires: null
 scores: null
 maturity:
-  stars: null
+  stars: 44000
   last_release: null
   active: true
-  license: null
+  license: Apache-2.0
   status: active
-  notes: multi-modelo
+  notes: ~40–44k★; ~15B tokens/semana
 steal: Todo vive en git; encaja en hábitos existentes (diffs, commits, ramas). Fiable para refactors estructurados.
 loop_role: Sustrato git-native.
 sources:
 - url: https://github.com/Aider-AI/aider
   date: '2026-06-26'
 meta:
-  completeness: 0.45
-  confidence: low
+  completeness: 0.6
+  confidence: medium
   last_verified: '2026-06-26'
   first_seen: '2026-06-26'
   open_questions:
-  - Verificar stars/versión en la fuente primaria (importado de data/frameworks.json).
   - Definir best_for/not_for y puntuar las 7 dimensiones con evidencia.

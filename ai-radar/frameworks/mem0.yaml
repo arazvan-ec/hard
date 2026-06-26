@@ -1,8 +1,7 @@
-# mem0 — perfil importado de data/frameworks.json (2026-06-26).
-# Generado por integración del dossier loop-engineering; pendiente de extract-improve.
+# mem0 — perfil importado y verificado por extract-improve (vuelta 2, 2026-06-26).
 id: mem0
 name: mem0
-url: https://mem0.ai
+url: https://github.com/mem0ai/mem0
 category: memory-context
 family: context-eng
 signal_types:
@@ -19,22 +18,21 @@ not_for: null
 requires: null
 scores: null
 maturity:
-  stars: null
-  last_release: null
+  stars: 48000
+  last_release: v1.0.4
   active: true
-  license: null
+  license: Apache-2.0
   status: active
-  notes: null
+  notes: ~47–51k★; Series A 24M$ (oct-2025)
 steal: Memoria agéntica con recuperación on-demand; benchmarks de memoria 2026.
 loop_role: Memoria externa recuperable.
 sources:
 - url: https://mem0.ai
   date: '2026-06-26'
 meta:
-  completeness: 0.45
-  confidence: low
+  completeness: 0.6
+  confidence: medium
   last_verified: '2026-06-26'
   first_seen: '2026-06-26'
   open_questions:
-  - Verificar stars/versión en la fuente primaria (importado de data/frameworks.json).
   - Definir best_for/not_for y puntuar las 7 dimensiones con evidencia.

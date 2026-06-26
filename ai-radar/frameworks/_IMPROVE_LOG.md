@@ -27,3 +27,27 @@
 - Confirmar backend Dolt vs JSONL de beads en docs primarias.
 - Fijar versión/tag exacto de spec-kit y nº de stars exacto de ralph.
 - `radar-scan` debería recoger el `state_change` de beads en el próximo digest.
+
+---
+
+## Vuelta 2 — 2026-06-26
+
+**Contexto:** se importaron 25 perfiles nuevos desde `data/frameworks.json` (dossier
+loop-engineering), todos en `confidence: low` con stars/versión sin verificar.
+
+**Perfiles atacados (lote prioritario, OSS de alta palanca con stars en null):**
+- **bmad** — stars `null → 49.000`, `v6.8 (may-2026)`, licencia MIT.
+- **cline** — stars `null → ~61.200`, Apache-2.0, 5M+ instalaciones.
+- **aider** — stars `null → ~44.000`, Apache-2.0.
+- **mem0** — stars `null → ~48.000`, `v1.0.4`, Apache-2.0; URL corregida al repo `mem0ai/mem0`.
+
+Los 4: `completeness 0.45→0.6`, `confidence low→medium`. Resuelta la open_question de
+stars/versión; queda la de best_for/not_for + puntuación de dimensiones.
+
+**Regla de decisión aplicada:** no se verificaron los 25 a ciegas — se eligió el lote por
+**valor para el recomendador** (frameworks OSS comparables y citables), no por facilidad.
+
+**Backlog (resto de importados, aún `confidence: low`):** verificar stars/versión de
+bmalph, antfarm, loop-engineering-toolkit, gsd, kiro, tessl, gastown, conductor, claude-squad,
+reverbcode, overstory, cosmos, openhands, 12-factor-agents; y datos de producto (no stars) de
+kiro/cursor/codex/claude-code. Atacar por lotes en próximas vueltas, no de golpe.

@@ -1,5 +1,4 @@
-# Cline — perfil importado de data/frameworks.json (2026-06-26).
-# Generado por integración del dossier loop-engineering; pendiente de extract-improve.
+# Cline — perfil importado y verificado por extract-improve (vuelta 2, 2026-06-26).
 id: cline
 name: Cline
 url: https://github.com/cline/cline
@@ -18,22 +17,21 @@ not_for: null
 requires: null
 scores: null
 maturity:
-  stars: null
+  stars: 61200
   last_release: null
   active: true
-  license: null
+  license: Apache-2.0
   status: active
-  notes: BYOK completo
+  notes: ~59–63k★; 5M+ instalaciones; BYOK completo
 steal: 'Independencia de vendor: Anthropic, OpenAI, Gemini, Bedrock, Groq, OpenRouter…'
 loop_role: Sustrato open, multi-modelo.
 sources:
 - url: https://github.com/cline/cline
   date: '2026-06-26'
 meta:
-  completeness: 0.45
-  confidence: low
+  completeness: 0.6
+  confidence: medium
   last_verified: '2026-06-26'
   first_seen: '2026-06-26'
   open_questions:
-  - Verificar stars/versión en la fuente primaria (importado de data/frameworks.json).
   - Definir best_for/not_for y puntuar las 7 dimensiones con evidencia.

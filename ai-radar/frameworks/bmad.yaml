@@ -1,5 +1,4 @@
-# BMAD-METHOD — perfil importado de data/frameworks.json (2026-06-26).
-# Generado por integración del dossier loop-engineering; pendiente de extract-improve.
+# BMAD-METHOD — perfil importado y verificado por extract-improve (vuelta 2, 2026-06-26).
 id: bmad
 name: BMAD-METHOD
 url: https://github.com/bmad-code-org/BMAD-METHOD
@@ -20,22 +19,21 @@ not_for: null
 requires: null
 scores: null
 maturity:
-  stars: null
-  last_release: v6.6 (módulo Test Architect)
+  stars: 49000
+  last_release: v6.8 (may-2026)
   active: true
-  license: null
+  license: MIT
   status: active
-  notes: recomendado para nuevos proyectos enterprise
+  notes: 12+ personas; ~49k★, near-daily pushes
 steal: Roles ágiles como agentes especializados; artefactos estructurados entre fases.
 loop_role: Planner multi-rol; combinable con Ralph (ver bmalph).
 sources:
 - url: https://github.com/bmad-code-org/BMAD-METHOD
   date: '2026-06-26'
 meta:
-  completeness: 0.45
-  confidence: low
+  completeness: 0.6
+  confidence: medium
   last_verified: '2026-06-26'
   first_seen: '2026-06-26'
   open_questions:
-  - Verificar stars/versión en la fuente primaria (importado de data/frameworks.json).
   - Definir best_for/not_for y puntuar las 7 dimensiones con evidencia.
