@@ -1,92 +1,120 @@
 # Responsabilidades del repo — AI Radar
 
-> Documento-charter. Define **qué tiene que hacer** este repo y **bajo qué ley arquitectónica** lo hace. Es la fuente de verdad sobre el propósito; todo lo demás (skills, taxonomía, registro, digests) son implementaciones de estas responsabilidades y se juzgan por cuánto las cumplen.
+> Documento-charter. Define **qué tiene que hacer** este repo y **bajo qué ley arquitectónica** lo hace. Es la fuente de verdad sobre el propósito; todo lo demás (skills, taxonomía, registro, datos, digests) son implementaciones de estas responsabilidades y se juzgan por cuánto las cumplen.
 
 ## Propósito
 
-Encontrar, clasificar y destilar **lo más nuevo del desarrollo con IA** (repos, técnicas, frameworks, prácticas), convirtiéndolo en señal accionable — y hacerlo mediante un sistema que **mejora solo en cada ejecución**.
+Encontrar, estructurar y comparar **lo más nuevo del desarrollo con IA** (repos, técnicas, frameworks, prácticas) para poder **recomendar, ante una historia de usuario concreta, el mejor framework o proceso** — y, en su grado máximo, **demostrarlo ejecutando y midiendo resultados reales**. Todo ello mediante un sistema que **mejora solo en cada ejecución**.
 
-> Principio rector heredado: **robar las técnicas, no instalar los sistemas.** Destilamos señal, no acumulamos enlaces.
+> Principio rector heredado: **robar las técnicas, no instalar los sistemas.** Destilamos señal accionable, no acumulamos enlaces.
+
+El norte no es un boletín de novedades: es un **motor de comparación y recomendación**. Le pasas una historia de usuario y te dice qué te conviene, con comparativa, justificación y —cuando esté maduro— evidencia empírica.
 
 ---
 
-## Las cuatro responsabilidades
+## Mapa de responsabilidades
 
-Tres son **operativas** (etapas del flujo). La cuarta es **transversal** (una ley que gobierna a las otras tres y a sí misma).
+Cinco son **operativas** (etapas del flujo, R1→R5). Una es **transversal** (RT): una ley que gobierna a todas las demás y a sí misma.
+
+```
+   R1 ──► R2 ──► R3 ──► R4 ──► R5
+ fuentes  datos  comparar consulta  evaluar
+          estruct. /rank  /recomendar empírico
+     ▲                                   │
+     └──────── realimenta el registro ───┘
+
+   RT · auto-mejora (ley): cada etapa tiene su propio meta-loop que la reescribe
+```
 
 ### R1 — Buscar fuentes
 **Qué:** descubrir de dónde sacar repos e información sobre nuevos desarrollos con IA, vetearlos por señal y mantener un registro vivo.
-- **Entrada:** huecos conocidos, fuentes existentes, señales de barridos previos.
-- **Salida:** entradas nuevas/mejoradas en `sources.yaml` con metadatos honestos.
-- **Implementación actual:** skill `source-curation` + `sources.yaml`.
-- **Métrica de éxito:** % de hallazgos valiosos que vinieron de fuentes del registro (cobertura) y ratio señal/ruido del registro (precisión).
+- **Contrato — entrada:** huecos conocidos, fuentes existentes, señales de barridos previos. **Salida:** entradas nuevas/mejoradas en `sources.yaml` con metadatos honestos.
+- **Implementación:** skill `source-curation` + `sources.yaml`.
+- **Métrica:** cobertura (% de hallazgos valiosos que vinieron del registro) y ratio señal/ruido del registro.
+- **Meta-loop:** `source-curation-improve`.
 
-### R2 — Analizar y rankear
-**Qué:** clasificar cada hallazgo y producir un **ranking** comparable y justificado, no una lista plana.
-- **Entrada:** hallazgos en bruto extraídos por R3.
-- **Salida:** cada hallazgo con familia + tipo(s) de señal + puntuación por dimensiones (Σ), y un orden por relevancia.
-- **Implementación actual:** `taxonomy.yaml` (familias, señales, dimensiones, gate de novedad) aplicado en el digest.
-- **Métrica de éxito:** consistencia del ranking (¿dos barridos puntúan igual lo equivalente?) y poder de decisión (¿el top del ranking cambia lo que hacemos?).
+### R2 — Extraer a datos estructurados
+**Qué:** de cada fuente/hallazgo, sacar el máximo de información útil **en forma estructurada y comparable** — un perfil por framework, no prosa. Incluye la **técnica reutilizable** ("idea a robar").
+- **Contrato — entrada:** fuentes seleccionadas de `sources.yaml` para un alcance dado. **Salida:** perfiles `frameworks/<id>.yaml` con atributos comparables (familia, casos de uso, gates, preserva-tests, lock-in, madurez, dimensiones de puntuación…) + hallazgos trazables (cada afirmación con su fuente, parafraseado).
+- **Implementación:** skill `radar-scan` (extracción) → emite a un esquema de perfil (pendiente de definir).
+- **Métrica:** profundidad y completitud del perfil (campos rellenos, fuente primaria alcanzada) sin sacrificar veracidad.
+- **Meta-loop:** `extract-improve`.
 
-### R3 — Extraer la mayor cantidad de información
-**Qué:** de cada fuente/hallazgo, sacar el máximo de información útil — qué es, fecha, fuente primaria, datos, y sobre todo la **técnica reutilizable** ("idea a robar").
-- **Entrada:** fuentes seleccionadas de `sources.yaml` para un alcance dado.
-- **Salida:** hallazgos ricos y trazables (cada afirmación con su fuente), parafraseados.
-- **Implementación actual:** skill `radar-scan` (pasos de búsqueda y extracción).
-- **Métrica de éxito:** profundidad por hallazgo (campos rellenos, fuente primaria alcanzada) sin sacrificar veracidad ni copiar texto.
+### R3 — Comparar y rankear
+**Qué:** sobre los datos estructurados, construir **filtros y comparativas** y un ranking comparable y justificado. El ranking es **consultable**, no una lista plana.
+- **Contrato — entrada:** perfiles `frameworks/<id>.yaml`. **Salida:** comparativas (tablas por dimensión/atributo) y un catálogo maestro rankeado.
+- **Implementación:** `taxonomy.yaml` (familias, señales, dimensiones, gate de novedad) + catálogo (pendiente).
+- **Métrica:** consistencia del ranking entre barridos y poder de decisión (¿el top cambia lo que hacemos?).
+- **Meta-loop:** `ranking-improve`.
 
-### R4 — Cada etapa es un proceso abstracto y auto-mejorable *(ley transversal)*
-**Qué:** toda etapa del sistema (incluida esta) debe ser un **proceso abstracto** con tres propiedades:
+### R4 — Consultar y recomendar
+**Qué:** dada una **historia de usuario**, filtrar los frameworks por sus atributos, producir una comparativa de los candidatos y **recomendar el mejor** con justificación y avisos.
+- **Contrato — entrada:** una historia de usuario + restricciones (lenguaje, stack, gates exigidos…). **Salida:** shortlist + comparativa + recomendación razonada con caveats.
+- **Implementación:** skill `framework-fit` / `radar-match` (pendiente).
+- **Métrica:** acierto de la recomendación (validada contra resultado real cuando R5 exista) y trazabilidad (la recomendación cita los atributos/datos que la sostienen).
+- **Meta-loop:** `match-improve`.
+- *Ejemplo:* "Como dev, quiero portar un servicio de Python a Go conservando los tests" → filtra por porting / loop autónomo / spec-anclada / preserva-tests → shortlist {Ralph, Spec Kit…} → comparativa + recomendación.
 
-1. **Contrato explícito.** Define sus entradas y salidas como una interfaz estable. Otra etapa solo depende del contrato, nunca de cómo está hecho por dentro.
-2. **Evolución independiente.** Se puede mejorar una etapa sin tocar las demás. Cambiar cómo rankeamos (R2) no debe obligar a cambiar cómo buscamos (R1).
-3. **Auto-mejora unitaria.** Cada flujo **sabe mejorarse a sí mismo**: tiene un bucle propio que observa sus resultados, detecta dónde falló respecto a su propósito, y **reescribe su propio método** (su SKILL.md, sus criterios, sus queries) para la próxima vez.
+### R5 — Evaluar empíricamente *(norte; por fases)*
+**Qué:** **ejecutar de verdad** varios frameworks sobre la misma historia de usuario, medir los resultados y compararlos para **encontrar el mejor proceso** — no solo el mejor sobre el papel.
+- **Contrato — entrada:** una historia de usuario + el shortlist de R4. **Salida:** resultados ejecutados + métricas comparables (calidad, nº de iteraciones, coste, tiempo) + veredicto.
+- **Implementación:** harness de benchmarking (pendiente; la pieza más pesada).
+- **Métrica:** reproducibilidad del benchmark y correlación entre la recomendación de R4 y el ganador empírico.
+- **Meta-loop:** `eval-improve`.
+- **Fases:** F1 datos-only (R1–R4 ya recomiendan); F2 benchmark manual de 2–3 frameworks sobre una historia; F3 benchmark automatizado y repetible.
 
-Esta responsabilidad es la que hace que el sistema *componga*: el activo no son los hallazgos, es la **capacidad creciente de cada etapa**. Cada ejecución debe dejar al menos una etapa mejor que antes.
+### RT — Auto-mejora *(ley transversal)*
+**Qué:** toda etapa (incluida esta) es un **proceso abstracto** con tres propiedades:
 
----
+1. **Contrato explícito.** Entradas y salidas como interfaz estable. Otra etapa depende del contrato, nunca del interior.
+2. **Evolución independiente.** Se mejora una etapa sin tocar las demás.
+3. **Auto-mejora unitaria.** Cada flujo **sabe mejorarse a sí mismo**: su meta-loop (`<etapa>-improve`) observa sus resultados, detecta dónde falló respecto a su propósito y **reescribe su propio método** (su SKILL.md, criterios, queries o esquema), con evidencia del barrido que lo motiva.
 
-## La ley R4, en concreto
-
-Para que R4 no sea retórica, cada etapa cumple este patrón:
+**Decisión de modelo:** RT se implementa como **ley transversal, de forma incremental** — un único patrón de auto-mejora reutilizable, instanciado por etapa, empezando por la de más palanca y replicando cuando haya datos. No es una etapa centralizada de reflexión.
 
 ```
                  ┌─────────────────────────────────────┐
    contrato ───► │  ETAPA (proceso abstracto)          │ ───► contrato
-   (entrada)     │                                     │      (salida)
-                 │   ejecuta su propósito              │
+   (entrada)     │   ejecuta su propósito              │      (salida)
                  │            │                        │
                  │            ▼                        │
-                 │   [meta-loop] observa su resultado  │
-                 │   vs su propósito → propone mejora  │
-                 │   a su propio método ───────────────┼──► se reescribe
+                 │   [meta-loop] observa resultado     │
+                 │   vs propósito → mejora su método ──┼──► se reescribe
                  └─────────────────────────────────────┘
 ```
 
-- El **contrato** de cada etapa se documenta (entradas/salidas) y se versiona.
-- El **meta-loop** de cada etapa es, idealmente, otra skill hermana (`<etapa>-improve`) cuyo único trabajo es auditar la etapa y proponer/aplicar una mejora a su definición — con evidencia del barrido que la motiva.
-- Las mejoras se **commitean atómicamente** (`skill:` para cambios de método, `sources:`/`findings:` para datos), de modo que la evolución de cada etapa queda versionada y es auditable.
+---
+
+## Estado actual (honesto)
+
+| Resp. | Etapa | Artefacto hoy | Contrato | Meta-loop |
+|-------|-------|---------------|----------|-----------|
+| R1 | Buscar fuentes | `skills/source-curation` + `sources.yaml` | parcial | ❌ |
+| R2 | Extraer a datos estructurados | `skills/radar-scan` (extrae a prosa, **falta esquema de perfil**) | parcial | ❌ |
+| R3 | Comparar y rankear | `taxonomy.yaml` (**falta catálogo/comparativas**) | parcial | ❌ |
+| R4 | Consultar y recomendar | **no existe** | ❌ | ❌ |
+| R5 | Evaluar empíricamente | **no existe** (norte) | ❌ | ❌ |
+| RT | Auto-mejora (ley) | este documento | este documento | ❌ (patrón a construir) |
+
+**Cuello de botella crítico:** R3, R4 y R5 dependen de que R2 produzca **datos estructurados** (perfiles `frameworks/<id>.yaml`). Sin el esquema de perfil, no hay filtros, ni comparativas, ni recomendación. **Ese esquema es el siguiente trabajo.**
 
 ---
 
-## Mapa: responsabilidad → artefacto → estado
+## Orden de construcción propuesto
 
-| Resp. | Etapa | Artefacto hoy | Contrato definido | Meta-loop (auto-mejora) |
-|-------|-------|---------------|-------------------|--------------------------|
-| R1 | Buscar fuentes | `skills/source-curation` + `sources.yaml` | parcial | ❌ pendiente |
-| R2 | Analizar/rankear | `taxonomy.yaml` (+ en `radar-scan`) | parcial | ❌ pendiente |
-| R3 | Extraer info | `skills/radar-scan` | parcial | ❌ pendiente |
-| R4 | Abstracción + auto-mejora | *(esta ley)* | este documento | ❌ pendiente (es lo siguiente a construir) |
-
-**Lectura del estado:** las tres etapas operativas existen como skills/config, pero ninguna tiene aún (a) un contrato formal escrito ni (b) su meta-loop de auto-mejora. Cumplir R4 es el siguiente trabajo: dar a cada etapa su contrato explícito y su `*-improve`.
+1. **Esquema de perfil de framework** (`frameworks/_SCHEMA.yaml`) — los atributos comparables que habilitan R3/R4. *(desbloquea todo)*
+2. **Sembrar perfiles** desde el digest 2026-06-26 (Ralph, Spec Kit, OpenSpec, Beads, ReverbCode…).
+3. **R4 — skill `framework-fit`**: historia de usuario → comparativa + recomendación (sobre datos).
+4. **RT — primer meta-loop** sobre la etapa de más palanca (probablemente R2 extracción), como patrón replicable.
+5. **R5 — benchmark** por fases (manual → automatizado).
 
 ---
 
 ## Cómo se usa este documento
 
-- Cualquier cambio en el repo debe poder mapearse a una de R1–R4. Si no encaja en ninguna, o sobra o falta una responsabilidad (y entonces se discute y se actualiza aquí primero).
-- Este documento se revisa cuando cambie el propósito, no en cada barrido. Es estable a propósito.
+- Cualquier cambio en el repo debe poder mapearse a una de R1–R5 o a RT. Si no encaja, o sobra o falta una responsabilidad — y entonces se discute y se actualiza aquí **primero**.
+- Se revisa cuando cambie el propósito, no en cada barrido. Es estable a propósito.
 
 ---
 
-*Charter v0 — 2026-06-26. Define responsabilidades; la implementación de los contratos y meta-loops (R4) viene a continuación.*
+*Charter v1 — 2026-06-26. Decisiones fijadas: RT = ley transversal incremental; alcance = datos + benchmark empírico (R5 como norte por fases). Siguiente: esquema de perfil de framework (R2).*
