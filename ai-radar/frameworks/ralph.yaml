@@ -1,0 +1,48 @@
+id: ralph
+name: Ralph (Wiggum loop)
+url: https://github.com/snarktank/ralph
+family: autonomous-loops
+signal_types: [new-technique, field-report]
+one_liner: >
+  Patrón de bucle autónomo en el que un agente corre en un loop de shell,
+  releyendo el mismo prompt cada iteración, usando el sistema de ficheros y git
+  como memoria en vez del historial de conversación, con contexto fresco por vuelta.
+
+use_cases: [porting, autonomous-long-run, greenfield, context-management]
+languages: [any]
+best_for: >
+  Tareas largas y repetitivas con criterio de "done" claro (p. ej. portar un
+  codebase entre lenguajes): destila tests+código a specs Markdown agnósticas en
+  /specs/ y reimplementa citando solo el contexto necesario.
+not_for: >
+  Tareas que exigen gates de calidad fuertes o decisiones de diseño únicas;
+  Huntley lo define como "deterministically bad in an undeterministic world".
+requires: Un agente de codificación + un loop de shell; no es una herramienta instalable.
+
+scores: { RIG: 2, LIG: 4, CTX: 5, MAD: 3, MA: 3, POR: 5, FIT: 4, sigma: 26 }
+
+maturity:
+  stars: null
+  last_release: null
+  active: true
+  license: unknown
+  status: active
+
+steal: >
+  Antes de portar, destilar tests+código a una spec Markdown agnóstica de
+  lenguaje; la spec (no el código origen) guía la reimplementación. Contexto
+  fresco + git/FS como memoria evita el desbordamiento de contexto.
+
+sources:
+  - { url: "https://ghuntley.com/loop/", date: 2026 }
+  - { url: "https://agent-wars.com/news/2026-03-15-ralph-autonomous-subagent-codebase-porting", date: 2026-03-15 }
+
+meta:
+  completeness: 0.6
+  confidence: medium
+  last_verified: 2026-06-26
+  first_seen: 2026-06-26
+  open_questions:
+    - "Verificar stars/actividad del repo snarktank/ralph contra la fuente primaria."
+    - "¿Hay variantes (bmalph) que merezcan perfil propio o son la misma familia?"
+    - "Confirmar las dimensiones RIG/MA con un caso de uso documentado, no estimación."

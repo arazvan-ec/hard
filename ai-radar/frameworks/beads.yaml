@@ -1,0 +1,48 @@
+id: beads
+name: Beads (bd)
+url: https://github.com/steveyegge/beads
+family: context-eng
+signal_types: [tool-release, new-technique]
+one_liner: >
+  Issue-tracker en forma de grafo, respaldado en git como JSONL en .beads/, que
+  da a los agentes de codificación memoria estructurada y persistente para tareas
+  de horizonte largo (resuelve el problema de las "50 First Dates").
+
+use_cases: [long-horizon-memory, multi-agent-orchestration, context-management]
+languages: [any]
+best_for: >
+  Dar a un agente memoria de plan y dependencias que viaja con el código y se
+  versiona; drop-in apuntando AGENTS.md/CLAUDE.md a bd. Mejora la planificación a
+  largo plazo y el descubrimiento de trabajo.
+not_for: >
+  Proyectos cortos de una sola sesión donde no hace falta persistencia entre
+  ejecuciones; no es un framework de proceso ni un orquestador completo.
+requires: Instalar la herramienta bd; una línea en AGENTS.md/CLAUDE.md.
+
+scores: { RIG: 3, LIG: 4, CTX: 5, MAD: 4, MA: 4, POR: 5, FIT: 5, sigma: 30 }
+
+maturity:
+  stars: 18700
+  last_release: "v0.59.0 (mar-2026)"
+  active: true
+  license: open-source
+  status: active
+
+steal: >
+  Persistir plan/dependencias como grafo en git (JSONL), no como markdown plano:
+  la memoria del agente se versiona y viaja con el repo. Candidato directo para el
+  backend de dedupe del propio AI Radar (roadmap v0.3).
+
+sources:
+  - { url: "https://steve-yegge.medium.com/introducing-beads-a-coding-agent-memory-system-637d7d92514a", date: 2026 }
+  - { url: "https://github.com/steveyegge/beads", date: 2026 }
+
+meta:
+  completeness: 0.75
+  confidence: medium
+  last_verified: 2026-06-26
+  first_seen: 2026-06-26
+  open_questions:
+    - "Confirmar stars y última versión exacta en el repo primario."
+    - "¿Qué harnesses tienen integración nativa hoy (Claude Code, Amp, otros)?"
+    - "Evaluar empíricamente la mejora en tareas de horizonte largo (entra en R5)."

@@ -1,0 +1,47 @@
+id: spec-kit
+name: GitHub Spec Kit
+url: https://github.com/github/spec-kit
+family: spec-as-artifact
+signal_types: [tool-release, field-report]
+one_liner: >
+  Toolkit open-source de GitHub para spec-driven development: una especificación
+  versionada y ejecutable, no el código, es la fuente de verdad; de ahí se deriva
+  plan, tareas y, por último, código.
+
+use_cases: [spec-authoring, greenfield, refactoring]
+languages: [any]
+best_for: >
+  Equipos que quieren una spec como artefacto compartido entre humanos y agentes,
+  con portabilidad entre muchos agentes (30+ integraciones) y menos ciclos de
+  regeneración frente a prompting ad-hoc.
+not_for: >
+  Tareas pequeñas o exploratorias donde el overhead de escribir la spec no
+  compensa; no orquesta múltiples agentes por sí mismo.
+requires: Un agente compatible (Claude Code, Cursor, Copilot…); CLI de Spec Kit.
+
+scores: { RIG: 4, LIG: 3, CTX: 3, MAD: 5, MA: 2, POR: 5, FIT: 3, sigma: 25 }
+
+maturity:
+  stars: 90000
+  last_release: "mid-2026 (>90k★, 30+ integraciones)"
+  active: true
+  license: open-source
+  status: active
+
+steal: >
+  Medir el éxito de un flujo SDD por nº de ciclos de regeneración, no por
+  velocidad bruta. La spec versionada como contrato derivable a plan→tareas→código.
+
+sources:
+  - { url: "https://www.marktechpost.com/2026/05/08/meet-github-spec-kit-an-open-source-toolkit-for-spec-driven-development-with-ai-coding-agents/", date: 2026-05-08 }
+  - { url: "https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html", date: 2026 }
+
+meta:
+  completeness: 0.7
+  confidence: medium
+  last_verified: 2026-06-26
+  first_seen: 2026-06-26
+  open_questions:
+    - "Confirmar URL canónica del repo y nº de stars exacto en la fuente primaria (GitHub)."
+    - "¿Última versión/release concreta? El dato de madurez viene de agregador."
+    - "Detallar el flujo exacto spec→plan→tasks→code para afinar RIG."
