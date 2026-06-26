@@ -10,35 +10,35 @@ version: 0
 families:
   - id: full-flow
     name: Flujo completo (proceso sobre el agente)
-    desc: Imponen spec → plan → ejecución → review. Ej.: Superpowers, GSD, BMAD, Compound, Agent OS.
+    desc: "Imponen spec → plan → ejecución → review. Ej.: Superpowers, GSD, BMAD, Compound, Agent OS."
 
   - id: autonomous-loops
     name: Bucles autónomos
-    desc: El agente itera hasta cumplir la spec; git como memoria. Ej.: Ralph, bmalph.
+    desc: "El agente itera hasta cumplir la spec; git como memoria. Ej.: Ralph, bmalph."
 
   - id: orchestrators
     name: Orquestadores / harness de ejecución
-    desc: Coordinan varios agentes (worktrees, kanban, swarms). Ej.: Conductor, Gastown, Antfarm, Claude Squad.
+    desc: "Coordinan varios agentes (worktrees, kanban, swarms). Ej.: Conductor, Gastown, Antfarm, Claude Squad."
 
   - id: spec-as-artifact
     name: La especificación como artefacto
-    desc: Spec-first / spec-anchored / spec-as-source. Ej.: Spec Kit, OpenSpec, Kiro, Tessl.
+    desc: "Spec-first / spec-anchored / spec-as-source. Ej.: Spec Kit, OpenSpec, Kiro, Tessl."
 
   - id: harness-engineering
     name: Harness engineering (primitivas)
-    desc: Técnicas de fiabilidad alrededor del modelo (no el modelo). Ej.: initializer agent, backpressure, dumb zone.
+    desc: "Técnicas de fiabilidad alrededor del modelo (no el modelo). Ej.: initializer agent, backpressure, dumb zone."
 
   - id: process-methodology
     name: Metodología de proceso
-    desc: Métodos, no herramientas. Ej.: SPDD, Agile V, taxonomía SDD.
+    desc: "Métodos, no herramientas. Ej.: SPDD, Agile V, taxonomía SDD."
 
   - id: ide-native
     name: IDE / reglas nativas
-    desc: SDD o reglas integradas en el editor. Ej.: Kiro, Cursor rules.
+    desc: "SDD o reglas integradas en el editor. Ej.: Kiro, Cursor rules."
 
   - id: context-eng
     name: Context engineering
-    desc: Gestión del context window como recurso. Ej.: condensación, KV-cache, filesystem memory.
+    desc: "Gestión del context window como recurso. Ej.: condensación, KV-cache, filesystem memory."
 
 # ───────────────────────── Tipos de señal ─────────────────────────
 # Un hallazgo puede tener varios. Ayuda a priorizar el digest.
